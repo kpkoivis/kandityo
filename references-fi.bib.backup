@@ -1,0 +1,94 @@
+@book{esimerkki,
+  title = {Graph Theory},
+  author = {Reinhard Diestel},
+  publisher = {Springer},
+  year = {2005},
+  address = {Berliini},
+  edition = {3.}
+}
+
+@article{quinlan,
+  title={Induction of Decision Trees},
+  author={Quinlan, Ross},
+  journal={Machine Learning},
+  volume={1},
+  pages={81--106},
+  year={1986},
+  publisher={Kluwer Academic Publishers},
+  address = {Boston}
+}
+
+@article{predictiveModelCerebrovascularDisease,
+  title={A predictive model for cerebrovascular disease using data mining},
+  author={Duen-Yian, Yeh and Ching-Hsue, Cheng and Yen-Wen, Chen},
+  journal={Expert systems with applications},
+  volume={38},
+  pages={8970--8977},
+  year={2011},
+  publisher={Elsevier Ltd.}
+}
+
+@article{burdenOfDisease,
+  title={Global and regional burden of disease and risk factors, 2001: systematic analysis of population health data},
+  author={Lopez, Alan and Mathers, Colin and Ezzati, Majid and Jamison, Dean and Murray, Christopher},
+  journal={The Lancet},
+  volume={367},
+  pages={1747--1757},
+  year={2006}
+}
+
+@article{aivohalvaustenIlmaantuvuusSuomessa19912002,
+  title={Aivohalvausten ilmaantuvuuden ja kuolleisuuden muutokset Suomessa vuosina 1991-2002},
+  author={Pajunen, Pia and Pääkkönen, Rauni and Laatikainen, Tiina and Hämäläinen, Helena and Keskimäki, Ilmo and Niemi, Marja and Rintanen, Hannu and Salomaa, Veikko},
+  journal={Suomen Lääkärilehti},
+  volume={22},
+  pages={2437--2442},
+  year={2005}
+}
+
+@incollection{aivoinfarktinKustannuksetTHL,
+  author      = "Meretoja, Atte and Kaste, Markku and Roine, Risto and Linna, Miika and Juntunen, Merja and Häkkinen, Unto",
+  title       = "PERFECT Stroke - Aivohalvauksen hoidon aiheuttamat suorat terveydenhuollon kustannukset Suomessa 1999-2008",
+  editor      = "Klavus, Jan",
+  booktitle   = "Terveystaloustiede 2010",
+  publisher   = "THL, Terveyden ja hyvinvoinnin laitos",
+  address     = "Helsinki",
+  year        = 2010,
+}
+
+@article{comingOfAgeOfAIInMedicine,
+  title={The Coming of Age of Artificial Intelligence in Medicine},
+  author={Patel, Vimla and Shortliffe, Edward and Stefanelli, Mario and Szolovits, Peter and Berthold, Michael and Bellazzi, Riccardo and Abu-Hanna, Ameen},
+  journal={Artificial intelligence in medicine},
+  volume={46},
+  pages={5--17},
+  year={2008}
+}
+
+@book{QuinlanC4_5,
+  title = {C4.5: Programs for machine learning},
+  author = {Quinlan, Ross},
+  publisher = {Morgan Kaufmann},
+  year = {1993},
+  address = {San Mateo}
+}
+
+@online{QuinlanC5_0,
+  author = {Quinlan, Ross},
+  title = {C5.0: An Informal Tutorial},
+  year = 2011,
+  url = {http://www.rulequest.com/see5-unix.html},
+  urldate = {2015-11-02}
+}
+
+@book{CART,
+  title = {Classification and regression trees},
+  author = {Breiman, Leo and Friedman, Jerome and Stone, Charles and Olshen, Richard},
+  publisher = {Chapman and Hall/CRC},
+  year = {1984},
+  address = {Monterey, CA}
+}
+
+
+
+

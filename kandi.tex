@@ -1,0 +1,915 @@
+
+% --- Template for thesis / report with tktltiki2 class ---
+% 
+% last updated 2013/02/15 for tkltiki2 v1.02
+
+\documentclass[12pt,finnish]{tktltiki2}
+
+% tktltiki2 automatically loads babel, so you can simply
+% give the language parameter (e.g. finnish, swedish, english, british) as
+% a parameter for the class: \documentclass[finnish]{tktltiki2}.
+% The information on title and abstract is generated automatically depending on
+% the language, see below if you need to change any of these manually.
+% 
+% Class options:
+% - grading                 -- Print labels for grading information on the front page.
+% - disablelastpagecounter  -- Disables the automatic generation of page number information
+%                              in the abstract. See also \numberofpagesinformation{} command below.
+%
+% The class also respects the following options of article class:
+%   10pt, 11pt, 12pt, final, draft, oneside, twoside,
+%   openright, openany, onecolumn, twocolumn, leqno, fleqn
+%
+% The default font size is 11pt. The paper size used is A4, other sizes are not supported.
+%
+% rubber: module pdftex
+
+% --- General packages ---
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsfonts,amsmath,amssymb,amsthm,booktabs,color,enumitem,graphicx}
+\usepackage[pdftex,hidelinks]{hyperref}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{rotating}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shapes,snakes}
+\usepackage{algpseudocode}
+\usepackage{breqn}
+\usepackage{array}
+
+% Automatically set the PDF metadata fields
+\makeatletter
+\AtBeginDocument{\hypersetup{pdftitle = {\@title}, pdfauthor = {\@author}}}
+\makeatother
+
+% --- Language-related settings ---
+%
+% these should be modified according to your language
+
+% babelbib for non-english bibliography using bibtex
+\usepackage[fixlanguage]{babelbib}
+\selectbiblanguage{finnish}
+
+% add bibliography to the table of contents
+\usepackage[nottoc]{tocbibind}
+% tocbibind renames the bibliography, use the following to change it back
+\settocbibname{Lähteet}
+
+% --- Theorem environment definitions ---
+
+\newtheorem{lau}{Lause}
+\newtheorem{lem}[lau]{Lemma}
+\newtheorem{kor}[lau]{Korollaari}
+
+\theoremstyle{definition}
+\newtheorem{maar}[lau]{Määritelmä}
+\newtheorem{ong}{Ongelma}
+\newtheorem{alg}[lau]{Algoritmi}
+\newtheorem{esim}[lau]{Esimerkki}
+
+\theoremstyle{remark}
+\newtheorem*{huom}{Huomautus}
+
+\newcolumntype{L}{>{\centering\arraybackslash}m{2cm}}
+
+% --- tktltiki2 options ---
+%
+% The following commands define the information used to generate title and
+% abstract pages. The following entries should be always specified:
+
+\title{Päätöspuut ja niiden käyttö terveydenhuollossa päätöksenteon tuen menetelmänä}
+\author{Kristian Koivisto}
+\date{\today}
+\level{Kandidaatintutkielma}
+\abstract{Tässä työssä perehdytään päätöspuiden perusteisiin, niiden muodostamisessa käytettyihin induktioalgoritmeihin
+sekä päätöspuiden sovellukseen terveydenhuollossa. Induktioalgoritmeista ID3:een perehdytään perusteellisemmin.
+Päätöspuut ovat tehokkaita luokittimia ja niitä voidaan käyttää päätöksenteon apukeinona tilanteissa, joissa
+päätöksenteko on luonteeltaan luokittelua - esimerkiksi lääketieteellisessä diagnostiikassa on usein kyse siitä, mihin
+luokkaan tai diagnoosiin potilastapaus kuuluu sen ominaisuuksien perusteella. Erilaisista luokittimista päätöspuut
+saattavat soveltua terveydenhuoltoon paremmin kuin muun tyyppiset luokittimet, koska niiden toiminta on
+visualisoitavissa ja lyhyen perehtymisen jälkeen on usein suhteellisen helppo kenen tahansa nähdä, mihin päätöspuun
+toiminta ja luokittelu perustuu. Tällä on merkitystä, koska terveydenhuollossa erilaisia päätöksentuen apukeinoja on
+ollut vaikea istuttaa sairaaloiden ja muiden toimintayksiköiden prosesseihin. Yksi syy tähän on, että terveydenhuollon
+ammattilaisten on vaikea luottaa sovelluksiin, joiden tarjoaman tuloksen syitä ja perusteita ei itse pysty verifioimaan.}
+
+
+% The following can be used to specify keywords and classification of the paper:
+
+\keywords{päätöspuu, päätöspuuinduktioalgoritmi, ID3, CART, terveydenhuolto, päätöksenteon tuki}
+
+% classification according to ACM Computing Classification System (http://www.acm.org/about/class/)
+% This is probably mostly relevant for computer scientists
+% uncomment the following; contents of \classification will be printed under the abstract with a title
+% "ACM Computing Classification System (CCS):"
+% \classification{}
+
+% If the automatic page number counting is not working as desired in your case,
+% uncomment the following to manually set the number of pages displayed in the abstract page:
+%
+% \numberofpagesinformation{16 sivua + 10 sivua liitteissä}
+%
+% If you are not a computer scientist, you will want to uncomment the following by hand and specify
+% your department, faculty and subject by hand:
+%
+% \faculty{Matemaattis-luonnontieteellinen}
+% \department{Tietojenkäsittelytieteen laitos}
+% \subject{Tietojenkäsittelytiede}
+%
+% If you are not from the University of Helsinki, then you will most likely want to set these also:
+%
+% \university{Helsingin Yliopisto}
+% \universitylong{HELSINGIN YLIOPISTO --- HELSINGFORS UNIVERSITET --- UNIVERSITY OF HELSINKI} % displayed on the top of the abstract page
+% \city{Helsinki}
+%
+
+
+\begin{document}
+
+% --- Front matter ---
+
+\frontmatter      % roman page numbering for front matter
+
+\maketitle        % title page
+\makeabstract     % abstract page
+
+\tableofcontents  % table of contents
+
+% --- Main matter ---
+
+\mainmatter       % clear page, start arabic page numbering
+
+\section{Johdanto}
+Terveydenhuollossa pyritään resurssit huomioiden takaamaan potilaille parasta mahdollista
+hoitoa. Tämä edellyttää laadukasta päätöksentekoa. Usein hyvän päätöksen tekeminen
+potilaan hoitoon liittyvässä päätöksentekotilanteessa on kuitenkin haastavaa ja valitettavan
+monesti tehty päätös osoittautuu jälkeenpäin epäedulliseksi. Tämän vuoksi terveydenhuollon
+ammattilaisille on pyritty kehittämään erilaisia päätöksenteon tuen menetelmiä.
+Luonnollisesti tietojenkäsittelytieteen keinoja on valjastettu terveydenhuollon
+päätöksenteon laadun parantamiseksi – myös älykkäiden järjestelmien soveltamista tähän
+on tutkittu aina tekoälyn alkutaipaleelta 1950-luvulta lähtien. Yksi käyttökelpoiseksi
+osoittautunut menetelmä on päätöspuu.
+
+Tässä kirjoituksessa perehdytään päätöspuihin, niiden
+muodostamisessa käytettyihin induktioalgoritmeihin sekä muutamiin sovelluksiin
+terveydenhuollossa.
+
+
+\section{Päätöspuut ja niiden käyttö päätöksenteon tuen menetelmänä}
+Terveydenhuollon ammattilaiset kohtaavat työssään monenlaisia päätöksentekotilanteita. Mikäli
+päätöksenteossa on kyse siitä, mihin luokkaan jokin asia kuuluu siitä tehtävien havaintojen
+perusteella, voi päätöspuista olla apua kyseisen päätöksenteon tukimenetelmänä. Tämäntyyppisiä
+päätöksentekotilanteita on terveydenhuollossa runsaasti - esimerkiksi menetelmä, jolla
+voitaisiin luotettavasti kategorisoida päivystyspoliklinikalle saapuva rintakipupotilas
+pienen tai suuren riskin potilaaksi kuolemanvaaran suhteen voisi olla hyödyllinen.
+Kyseisen päätöksen tekeminen on harjaantuneellekin lääkärille vaativa tehtävä ja
+usein alustavan päätöksen joutuu tekemään aloittelija, jolloin virheellisen päätöksen
+mahdollisuus luonnollisesti kasvaa. Tällaisessa asetelmassa luotettavasta päätöksentuen
+apukeinosta voisi olla hengenpelastavaakin merkitystä.
+
+Vastaavanlaista luokittelua voidaan aikaansaada monilla muillakin menetelmillä, kuten neuroverkoilla
+ja tukivektorikoneilla. Päätöspuu on kuitenkin terveydenhuollon kontekstissa erityisen
+mielenkiintoinen vaihtoehto, sillä sen toimintaperiaate on helposti kenen tahansa ymmärrettävissä,
+siitä voidaan piirtää visuaalinen esitys ja lyhyen perehtymisen jälkeen on usein suhteellisen helppoa nähdä, miksi
+päätöspuu päätyy tiettyyn tulokseen. Tämä on tärkeää, sillä vaikka monien tekoälysovellusten
+on osoitettu kykenevän parempaan päätöksentekoon kuin terveydenhuollon ammattilaiset ja näin
+niistä saattaisi hyvinkin olla hyötyä, niiden istuttaminen sairaaloiden ja muiden terveydenhuollon
+toimintayksiköiden prosesseihin ei ole onnistunut odotetunlaisesti.
+Tämän on arveltu johtuvan osittain siitä, että päätöksentekotilanteissa, joihin liittyy epävarmuutta
+ja potilaan kannalta mahdollisesti huonoja vaihtoehtoja, terveydenhuollon ammattilaisten on hankala
+luottaa laitteeseen, jonka toimintaa on vaikeaa tai mahdotonta ymmärtää \cite{comingOfAgeOfAIInMedicine}. 
+Tässä mielessä päätöspuut saattavat olla helpommin
+hyväksyttävissä kuin muut luokittimet, kun päätöksentekijä voi itse verifioida, mihin päätöspuun
+tulos perustuu. Terveydenhuollossa on myös ennestään totuttu erilaisiin graafisiin päätöksenteon
+apuvälineisiin, jolloin päätöspuu ei välttämättä edes olisi niin erilainen kuin jo aiemmin tutuiksi
+tulleet menetelmät.
+ 
+Päätöspuu ja sen käyttö päätöksenteon tukemisessa on helposti ymmärrettävissä. Ensinnäkin päätöspuu
+on rakenteeltaan nimensä mukaisesti puu ja on sellaisena visualisoitavissa. Sen käyttäminen päätöstä
+tehdessä liittyy polun kulkemiseen puun juuresta johonkin sen lehdistä. Puun lehdet edustavat päätöstä
+ja sen muut solmut ehtoja, joiden tuloksen perusteella valikoituu yksi solmun lapsipuiden juurista
+polun seuraavaksi askeleeksi. Näin kukin polku puun juuresta lehteen koostuu sarjasta ehtoja, joiden
+perusteella päädytään yhteen mahdollisista puun tuloksista eli päätöksistä.
+
+Konkreettisena esimerkkinä päätöspuu voisi liittyä edellämainittuun kysymykseen siitä, onko
+päivystyspoliklinikalle saapuvalla rintakipupotilaalla suuri kuolemanriski vai ei. Tähän tarkoitukseen
+muodostetussa puussa juuressa oleva ehto voisi liittyä potilaan sukupuoleen: jos potilas on miespuolinen,
+valitaan juuren vasemmanpuoleinen lapsi, jos taas potilas on naispuolinen, valitaan
+juuren oikeanpuoleinen lapsi. Mikäli potilas on mies, saattaisi seuraava ehto liittyä siihen,
+onko potilaalla verenpainetauti ja seuraava ehto sen jälkeen taas kolesterolitasoon. Näin
+potilaasta tehtävät havainnot johdattavat lopulta puun lehteen eli potilastapauksesta tehtävään
+luokitukseen ja sitä myötä päätökseen.
+
+Periaatteessa päätöspuina voitaisiin pitää kaikkia sellaisia puita, joissa edellämainitulla tavalla
+päädytään puun lehdessä olevaan päätökseen tiettyjen ehtojen perusteella. Jäljempänä päätöspuilla
+tarkoitetaan kuitenkin vain sellaisia puita, jotka on muodostettu niin kutsutuilla induktioalgoritmeilla.
+Tällaisille puille on ominaista, että ne ovat luonteeltaan yleistämiseen kykeneviä luokittimia ja
+pohjautuvat induktioalgoritmille syötettyihin esimerkkitapauksiin. Induktioalgoritmeihin
+perehdytään tarkemmin kappaleessa \ref{sec:induktioalgoritmit}. Yleistämisellä tarkoitetaan sitä,
+että päätöspuu kykenee luokittelemaan muitakin tapauksia kuin pelkästään niiden muodostamisessa
+käytettyjä esimerkkitapauksia.
+
+Päätöspuiden ymmärrettävyys ja visuaalisuus ovat potentiaalisesti hyödyllisiä sivuominaisuuksia;
+induktioalgoritmien tavoitteena on kuitenkin vain puun mahdollisimman hyvä luokituskyky. Puun muilla
+ominaisuuksilla ei ole merkitystä. Päätöspuiden soveltamista terveydenhuollon päätöksentekotilanteisiin
+tarkastellaan kappaleessa \ref{sec:sovellukset_terveydenhuollossa}. Siinä kontekstissa arvioidaan
+päätöspuiden meriittejä myös mainittujen sivuominaisuuksien näkökulmasta, vertailukohtana
+terveydenhuollossa tyypillinen, kotikutoinen, kuvassa \ref{fig:Vuokaaviopäätöspuu} esitetty päätöspuu,
+jonka muodostamisessa ei ole käytetty mitään erityisempää formalismia. Tämän tyyppinen, vuokaaviomainen
+päätöspuu on ilmeisen käyttökelpoinen; induktioalgoritmipäätöspuiden olisi hyvä kyetä samantyyppiseen
+intuitiiviseen käytettävyyteen saavuttaakseen hyväksyttävyyttä terveydenhuollon ammattilaisten
+keskuudessa.
+ 
+Päätöspuita on sovellettu tiedon louhinnassa ja lisäksi joillakin induktioalgoritmeilla voidaan muodostaa
+päätöspuiden lisäksi regressiopuita. Näitä aihepiirejä ei käsitellä tämän enempää.
+
+\begin{figure}
+\begin{tikzpicture}[font=\tiny, every tree node/.style={text width=2cm, draw,rectangle},
+every leaf node/.style={draw,circle},
+   level distance=2cm,sibling distance=0.1cm,
+   edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}]
+\Tree
+[.{Potilaalla krooninen neuropaattinen kiputila?}
+    \edge node[auto=right] {Ei};
+    [.{Arvioi muita vaihtoehtoja} ]
+    \edge node[midway,left] {Kyllä};
+    [.{Tavallisia lääkityksiä kokeiltu?} 
+       \edge node[midway,left] {Ei};
+       [.{Kokeillaan tavallisia lääkityksiä.} ]
+       \edge node[midway,right] {Kyllä};
+       [.{Tavalliselle lääkitykselle hyvä vaste?}
+          \edge node[midway,left] {Ei};
+	  [.{Halukas kokeilemaan marijuanaa?}
+	     \edge node[midway,left] {Ei};
+             [.{Jatketaan tavallisella lääkityksellä.} ]
+             \edge node[midway,right] {Kyllä};
+             [.{Kuuluuko potilas riskiryhmään (mielenterveys, väärinkäyttäjä)?}
+                 \edge node[midway,left] {Ei};
+                 [.{Varaa lääkärin arviointikäynti.} ]
+                 \edge node[midway,right] {Kyllä};
+                 [.{Lähetä psykiatrin arvioon. Psykiatrilta puoltava arvio?} 
+		     \edge node[midway,left] {Ei};
+                     [.{Jatketaan tavallisella lääkityksellä.} ]
+                     \edge node[midway,right] {Kyllä};
+                     [.{Varaa lääkärin arviointikäynti.} ] 
+                 ]
+              ]
+              ]
+	   \edge node[midway,right] {Kyllä};
+	   [.{Jatketaan tavallisella lääkityksellä} ]
+	]
+    ]
+]
+\end{tikzpicture}
+\caption{Päätöspuu liittyen kysymykseen, hyötyykö potilas lääkärin arviointikäynnistä.}
+\label{fig:Vuokaaviopäätöspuu}
+\end{figure}
+
+\section{Päätöspuiden induktioalgoritmit}
+\label{sec:induktioalgoritmit}
+Induktioalgoritmien tehtävä on muodostaa yleistämiseen kykenevä päätöspuu pelkästään niille
+syötettyjen, ennalta luokiteltujen esimerkkien perusteella. Kaikki esimerkit oikein
+luokittelevan päätöspuun luominen on triviaali tehtävä, lisäksi samasta joukosta esimerkkejä
+voidaan muodostaa monenlaisia puita. Haaste onkin muodostaa sellainen puu, joka paitsi luokittelee
+esimerkit niin myös mitkä tahansa sille esitetyt tapaukset oikein. Kullakin induktioalgoritmilla
+on omanlaisensa strategia suoriutua tästä. Tunnetuin algoritmeista lienee Quinlanin ID3
+(Iterative Dichotomiser 3) \cite{quinlan}, joka käsitellään perusteellisesti jäljempänä.
+Muita tunnettuja induktioalgoritmeja ovat niin ikään Quinlanin C4.5 \cite{QuinlanC4_5} ja
+C5.0 \cite{QuinlanC5_0} sekä Breimanin ym. kehittämä joukko algoritmeja, joita kutsutaan
+yhteisellä nimellä CART (engl. classification and regression tree) \cite{CART}.
+
+\subsection{Induktioalgoritmien yhteiset piirteet}
+Riippumatta käytetystä algoritmista päätöspuun muodostaminen on aina samanlainen tapahtuma sikäli,
+että algoritmin syötteenä on pelkästään joukko esimerkkitapauksia, joiden luokka on tiedossa, ja
+tuloksena yleistämiseen pyrkivä luokitin. Kaikkien algoritmien yhteisenä haasteena on esimerkkitapausten
+ominaisuuksien perusteella päätellä, mihin luokkaan muutkin mahdollisesti puulle myöhemmin
+esiteltävät tapaukset kuuluvat. Tämäntyyppistä päättelyä, jossa esimerkkitapausten perusteella
+tehdään oletuksia muistakin mahdollisista tapauksista, kutsutaan induktiiviseksi päättelyksi.
+Induktiivinen päättely on luonteeltaan epävarmaa, mistä seuraa, että myös päätöspuiden
+aikaansaama luokitus on epävarmaa. Induktioalgoritmien muodostamien päätöspuiden tulosta
+täytyykin pitää enemmänkin olettamuksena tai hypoteesina oikeasta luokasta kuin
+varmana luokituksena.
+
+Matemaattisessa mielessä päätöspuu toimii kuvauksena eli funktiona kaikkien mahdollisten
+tapausten joukosta kaikkien mahdollisten luokkien joukkoon. Kutsuttakoon edellistä joukkoa
+joukoksi $S$ ja jälkimmäistä joukoksi $L$. Oletetaan, että jokaisella joukon $S$ alkiolla on
+luokka, joka on joukon $L$ alkio. Tällöin jokin tuntematon funktio $f$ kykenee liittämään
+jokaisen joukon $S$ alkion oikeaan joukon $L$ alkioon eli täydelliseen luokitteluun.
+Funktion $f$ päättely ei yleensä ole mahdollista vaan induktioalgoritmin tuloksena on
+hypoteesi $h$, joka on approksimaatio funktiosta $f$. Verrattuna muihin keinoihin approksimoida
+$f$ päätöspuuinduktioalgoritmin erikoisuus on päätyminen luokittimeen, joka on rakenteeltaan puu.
+
+Induktioalgoritmit ovat esimerkki ohjatusta oppimisesta; algoritmi pyrkii oppimaan edellisessä
+kappaleessa mainitun funktion $f$ sille annettujen ennalta luokiteltujen esimerkkien perusteella. 
+Kuten ohjatussa oppimisessa yleensäkin, myös induktioalgoritmien kohdalla käytettävissä olevat
+esimerkkitapaukset jaetaan kahteen osajoukoon, opetusjoukkoon ja testijoukkoon. Opetusjoukon
+tapauksia käytetään päätöspuun muodostamiseen ja testijoukon tapauksia kyseisen
+puun luokituskyvyn selvittämiseen: mitä suurempi osa testijoukon tapauksista luokitellaan oikein,
+sitä parempi päätöspuu on tehtävässään. Eri induktioalgoritmit päätyvät erilaisiin puihin vaikka
+hyödyntäisivät samaa opetusjoukkoa - vertaamalla puiden luokittelukykyä testijoukon alkioilla
+voidaan löytää puista se, joka kussakin päätöksentekotilanteessa toimii parhaiten.
+
+Kukin opetusjoukon tapaus esitellään induktioalgoritmeille kokoelmana attribuutteja, joilla kullakin on arvo.
+Eri induktioalgorimit eroavat toisistaan siinä, minkälaisia arvoja attribuutit voivat saada:
+jotkut pystyvät käsittelemään reaaliarvoisia attribuutteja, toiset kokonaislukuarvoisia. Kuitenkin esimerkiksi
+ID3 pystyy käsittelemään vain sellaisia attribuutteja, joiden arvot tulevat ennalta määritellystä
+joukosta. Esimerkki tällaisesta attribuutista voisi olla rintakivun kovuus: ID3:n tapauksessa kovuus voisi
+saada vain ennalta määriteltyjä arvoja, kuten ``kova'', ``keskikova'' ja ``lievä'', kehittyneemmässä
+algoritmissa arvot voisivat olla jatkuvia esimerkiksi väliltä 0 - 10. Kukin tapaus kuvaillaan
+samalla joukolla attribuutteja, kullakin tapauksella on näille omat arvonsa. Tarvittavien attribuuttien määrä
+riippuu käsillä olevasta luokitteluongelmasta: joskus luokittelun onnistuminen saattaa vaatia
+tapausten kuvailua usealla kymmenellä attribuutilla, toisinaan saatetaan selvitä huomattavasti pienemmällä
+määrällä. Voi käydä niinkin, että luokittelu ei onnistu laisinkaan käytettävissä olevilla attribuuteilla.
+
+Valmiissa päätöspuussa opetusjoukon tapausten attribuutteja vastaavat puun ehtosolmujen ehdot ja solmun lapsia
+attribuutin mahdolliset arvot. Mikäli rintakipuesimerkin päätöspuu olisi olemassa, siinä saattaisi olla - mutta
+ei tarvitse olla - ehtosolmu, jonka ehtona on nimenomaan rintakivun kovuus. Päätöspuuta käytettäessä
+rintakipupotilaan rintakivun kovuus pitäisi olla tiedossa ja silloin päätöspuun ehtoon mahdollisuus vastata.
+Eteneminen ehtosolmusta eteenpäin määräytyisi juuri tämän rintakipupotilaan rintakivun kovuuden määrittelevän
+attribuutin arvon perusteella, jolloin päätöspuun seuraavaksi askeleeksi määräytyisi se ehtosolmun lapsi,
+jota vastaa tapauksen arvo. 
+
+\subsection{ID3}
+\label{sec:ID3}
+Verrattuna sitä edeltäviin induktioalgoritmeihin ID3:ssa oivalluksena on ollut soveltaa informaatioteoriaa
+puun ehtosolmujen attribuuttien valinnassa. Algoritmin tiettyjen puutteiden vuoksi siitä on kehitty
+paranneltuja versioita (C4.5 ja C5.0). ID3 pystyy luokittelemaan vain kahteen erilliseen luokkaan (+ ja -), lisäksi
+attribuuttien arvot voivat olla peräisin vain ennalta määritellystä joukosta vaihtoehtoja. Se ei tue
+jatkuva- eikä kokonaislukuarvoisia attribuutteja lainkaan.
+
+ID3 on rekursiivinen algoritmi, joka aloittaa puun muodostamisen sen juuresta. Juuren ollessa kyseessä se pyrkii
+valikoimaan koko opetusjoukon $S$ alkioiden attribuuteista sen, jonka suhteen opetusjoukon jakaantumisesta
+osajoukkoihin seuraa paras mahdollinen informaatiolisä $IG(S)$ (engl. information gain). Algoritmi laskee
+informaatiolisän kaikille attribuuteille: juuren attribuutiksi valikoituu se, jonka informaatiolisä
+on suurin. Attribuutin valinnan seurauksena opetusjoukko jakaantuu osajoukkoihin attribuutin mahdollisten arvojen
+perusteella ja vastaavasti juuri saa niin monta lapsisolmua kuin attribuutilla on mahdollisia arvoja. Valittu
+attribuutti vastaa päätöspuun ehtosolmussa olevaa ehtoa. Jaon jälkeen algoritmi pureutuu jäljellä oleviin
+opetusjoukon osajoukkoihin samalla rekursiivisella periaatteella kuin koko opetusjoukon ollessa kyseessä, mutta jo valikoidut
+attribuutit jätetään huomioimatta suurinta informaatiolisää laskettaessa eikä niitä enää uudestaan valita
+ehtoattribuuteiksi.
+
+Algoritmin rekursio päättyy seuraavissa tilanteissa (pysähtymisehdot): 
+\begin{enumerate}
+  \item Kaikki jäljellä oleva opetusjoukon osajoukon alkiot kuuluvat samaan luokkaan (+ tai -): muodostetaan puun lehti, jonka luokaksi
+  asetetaan kyseisten alkioiden luokka.
+  \item Kaikki mahdolliset attribuutit on jo kulutettu loppuun mutta osajoukon alkiot eivät silti kuulu samaan luokkaan (+ tai -): muodostetaan puun lehti,
+  jonka luokaksi valikoituu se luokka, johon suurempi osa osajoukon alkioista kuuluu
+  \item osajoukko on tyhjä: muodostetaan lehti, jonka luokaksi valitaan lehden vanhemman osajoukon alkioiden yleisin luokka.
+\end{enumerate}
+
+ID3-algoritmia käytettäessä käytettävissä olevista esimerkkitapauksista erotetaan satunnaisesti tietty määrä tapauksia; muodostettua
+joukkoa kutsutaan ikkunaksi. Jäljelle jääneet tapaukset muodostavat testijoukon. ID3-algoritmi muodostaa ikkunan alkioiden
+perusteella päätöspuun, joka aina luokittelee ikkunan tapaukset oikein. Tämän jälkeen loput esimerkkitapaukset eli testijoukko ajetaan
+päätöspuun läpi ja mikäli ilmenee, että yksikin testijoukon alkio luokittuu väärin, valitaan satunnainen määrä näitä väärin
+luokitettuja tapauksia ja lisätään ne ikkunaan. Iteraatioita jatketaan, kunnes kaikki testijoukonkin alkiot luokittuvat oikein.
+Quinlanin artikkelin mukaan \cite{quinlan} tällä tavoin toimien on mahdollista nopeuttaa algoritmin toimintaa. Periaatteessa tällä
+strategialla toimien voisi käydä niin, ettei ID3 päätyisi lainkaan sopivaan päätöspuuhun; saman artikkelin
+mukaan silloisilla ID3:lle syötetyillä joukoilla ei olisi kertaakaan käynyt niin.
+
+Pseudokoodiesitys ID3-algoritmista on esitettu kuvassa \ref{fig:pseudokoodi}.
+
+
+\begin{figure}
+\begin{algorithmic}
+\Function{ID3}{Esimerkit, Attribuutit, Luokat}
+\State Muodosta solmu t
+\If {Esimerkit-joukon kaikkien alkioiden luokka on  +}
+    \State Anna solmulle t leima +
+    \State\Return {t}
+\EndIf
+\If {Esimerkit-joukon kaikkien alkioiden luokka on  -}
+    \State Anna solmulle t leima -
+    \State\Return {t}
+\EndIf
+\State Leimaa solmu t Luokat-joukon yleisimmällä arvolla Esimerkit-joukossa  
+\If {Attribuutit-joukko on tyhjä}
+    \State\Return {t}
+\EndIf    
+\State Valitse {A*}:ksi {parhaiten luokitteleva Attribuutti Esimerkit-joukossa}
+\State Aseta A* t:n ehtoparametriksi
+\For{kaikille A*:n mahdollisille arvoille a}
+    \State Muodosta t:lle uusi lapsisolmu jota vastaa ehto A* = a
+    \State Muodosta joukko EsimerkkiA jossa A* = a
+    \If {EsimerkkiA on tyhjä}
+        \State Lisää lehtisolmu ja leimaa se Luokat-joukon yleisimmällä arvolla joukossa Esimerkit
+    \Else
+	\State {Lisää alipuu ID3(EsimerkkiA, Attribuutit \textbackslash {A*}, Luokat)}
+    \EndIf
+\EndFor
+\State\Return {t}
+\EndFunction
+\end{algorithmic}
+\caption{ID3-algoritmin pseudokoodiesitys}
+\label{fig:pseudokoodi}
+\end{figure}
+
+
+\subsection{ID3 ja päätöspuun muodostaminen esimerkkidatan pohjalta}
+
+ID3-algoritmin toiminnan havainnollistamiseksi seuraavassa muodostetaan päätöspuu käyttäen taulukossa \ref{table:EsimerkkiData} olevaa esimerkkidataa.
+Kyseinen esimerkkidata on kuvitteellinen ja on terveydenhuollon kontekstiin mukailtu versio Quinlanin artikkelissa
+\cite{quinlan} olevasta samantyyppisestä esimerkistä. 
+
+Esimerkkidatassa on neljäntoista päivystyspoliklinikalla hoidetun nilkkavammapotilaan tietoja sekä tieto siitä, katsoiko potilaan
+päivystyspoliklinikalla hoitanut lääkäri tarpeelliseksi pyytää potilaan nilkasta röntgentutkimusta vai ei (viimeisen
+sarakkeen P tai N). Muihin sarakkeisiin on koottu potilaiden tietoja: miltä nilkka on näyttänyt, mikä vammamekanismi on ollut, mikä kivun kovuus
+on ollut ja onko potilas kyennyt varaamaan (kävelemään kipeällä nilkalla) vai ei.
+
+Taulukkoa \ref{table:EsimerkkiData} tarkastelemalla herää ajatus, pystyttäisiinkö siinä olevan datan, eli potilaiden ominaisuuksien
+ja luokituksen (P tai N) perusteella muodostamaan päätöspuu, jolla voitaisiin ennustaa hoitavan lääkärin päätös tilata potilaan nilkasta
+röntgenkuva? Tällainen päätöksenteon apukeino voisi päivystyspoliklinikalla olla hyödyllinen:
+päätös kuvaamisen tarpeesta voitaisiin tehdä jo potilaan saapuessa päivystyspoliklinikalle hoitajan tekemän
+lyhyen arvion perusteella, jolloin potilas voisi käydä nilkan kuvauksessa ennen lääkärin vastaanotolle saapumista.
+Tällöin lääkäri voisi hoitaa potilaan yhden kontaktin perusteella: vastaanotolla olisi potilastapauksen ratkaisemiseksi
+kaikki tarpeellinen tieto valmiina. Ilman kuvaamistarpeen ennakointia tarvittaisiin kaksi lääkärin ja potilaan
+kohtaamista: ensimmäisessä todetaan, ettei potilastapausta voida ratkaista ilman kuvaamista ja toinen potilastapauksen
+lopullista hoitoa varten. Yhden kontakin malli johtaisi potilaan nopeampaan hoitoon ja olisi rajallisten resurssien
+tehokasta käyttöä.
+
+Taulukosta nähdään, että kullakin potilastapauksella on neljä attribuuttia ja taulukosta voidaan katsoa kunkin potilaan
+saamat attribuuttien arvot. Potilaan 2 attribuutit ja niiden arvot on esitetty taulukossa \ref{table:Nilkkavammapotilas2}.
+Taulukosta \ref{table:EsimerkkiData} nähdään myös, että kyseisen potilastapauksen kohdalla ei päädytty kuvaukseen (luokka N).
+
+Kyseinen data sopii ID3:n hyödynnettäviksi: luokitus on jompikumpi kahdesta luokasta (N tai P), luokat ovat erilliset (potilastapaus
+ei voi kuulua molempiin luokkiin N ja P samanaikaisesti) ja potilaiden attribuuttien arvot kuuluvat ennaltamääriteltyihin joukkoihin,
+jotka on esitetty taulukossa \ref{table:NilkkavammapotilastapautenAttribuutitJaArvot}.
+
+Joukon $S$ entropia $H(S)$ on kyseiseen joukkoon sisältyvän epävarmuuden mitta. Se lasketaan
+kaavalla
+
+\[ H(S) = -\sum_{x \in X} p(x)\log_2 p(x) \mbox{,}\]
+jossa $X$ on joukon $S$ alkioiden mahdollisten luokkien joukko ja $p(x)$ niiden alkioiden osuus
+joukossa $S$ joiden luokka on $x \in X$. Entropian yksikkönä on tapana käyttää bittiä.
+
+ID3-algoritmissa joukko $S$ halutaan jakaa sen attribuutin $A$ suhteen osajoukkoihin
+$T_1, T_2, ..., T_t \subset T = S$, joista seuraa suurin informaatiolisä $IG(A,S)$.
+Edellä joukot $T_1, T_2, ..., T_t$ ovat erillisiä ja 
+$T_1\cup T_2\cup ...\cup T_t = \cup_{t=1}^{n}T_t = S$.
+Attribuutilla $A$
+on $n$ mahdollista arvoa. Informaatiolisä on joukon $S$ entropian ja osajoukkoihin jaosta seuraavan
+entropian erotus, joka lasketaan kaavalla
+
+\[ IG(A,S) = H(S) -\sum_{t = 1}^{n} p(T_t)H(T_t) \mbox{,}\]
+jossa $p(T_t)$ on joukon $T_t$ alkioiden osuus kaikista joukon $S$ alkioista ja $H(T_t)$ joukon $T_t$
+entropia. 
+
+Lasketaan nilkkavammapotilasdatan entropia. Nilkkavammapotilaat ovat jakautuneet kahteen luokkaan N ja P.
+Luokkaan N kuuluu 5 tapausta ja luokkaan P kuuluu 9 tapausta. Yhteensä tapauksia on siis neljätoista. Näiden
+tietojen perusteella nilkkavammapotilasjoukon $S$ entropia on
+
+\[ H(S) = -\left(\frac{5}{14}\log_2\left(\frac{5}{14}\right) + \frac{9}{14}\log_2\left(\frac{9}{14}\right)\right) \approx 0.940 \mbox{ bittiä.} \] 
+
+Lasketaan seuraavaksi, minkä attribuutin perusteella koko nilkkavammapotilaiden joukko kannattaa jakaa osajoukkoihin,
+eli minkä attribuutin suhteen jakamisesta seuraa suurin informaatiolisä. Aloitetaan attribuutista \textit{Ulkonäkö},
+joka taulukon \ref{table:NilkkavammapotilastapautenAttribuutitJaArvot} mukaisesti
+voi saada arvot \textit{Normaali, Turvonnut} tai \textit{Virheasento}. Informaatiolisän $IG(A_{Ulkonäkö},S)$ laskemiseksi
+tarvitaan $p(T_{Normaali})$, $p(T_{Turvonnut})$ ja $p(T_{Virheasento})$, eli attribuutin \textit{Ulkonäkö} saamien arvojen
+osuus kaikista joukon $S$ alkioista. Taulukosta \ref{table:EsimerkkiData} voidaan laskea, että
+
+\begin{equation*}
+\begin{split}
+p(T_{Normaali}) &= \frac{5}{14} \\
+p(T_{Turvonnut}) &= \frac{5}{14} \\
+p(T_{Virheasento}) &= \frac{4}{14} \mbox{.}
+\end{split}
+\end{equation*}
+
+%\[ p(T_{Normaali}) = \frac{5}{14} \]
+%\[ p(T_{Turvonnut}) = \frac{5}{14} \]
+%\[ p(T_{Virheasento}) = \frac{4}{14} \mbox{.} \]
+
+Lisäksi tarvitaan joukkojen $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$ entropiat $H(T_{Normaali})$, $H(T_{Turvonnut})$
+ja $H(T_{Virheasento})$. Kaava on luonnollisesti sama kuin edellä, jossa laskettiin koko joukon $S$ entropia $H(S)$, mutta
+osajoukkojen $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$ entropioita laskettaessa $p(x)$
+tarkoittaa luokkien N ja P osuutta kussakin osajoukossa $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$.
+Entropiat ovat
+\begin{equation*}
+\begin{split}
+H(T_{Normaali}) &= -\left(\frac{3}{5}\log_2\left(\frac{3}{5}\right) + \frac{2}{5}\log_2\left(\frac{2}{5}\right)\right) \approx 0.971 \mbox{ bittiä,} \\
+H(T_{Turvonnut}) &= -\left(\frac{3}{5}\log_2\left(\frac{3}{5}\right) + \frac{2}{5}\log_2\left(\frac{2}{5}\right)\right) \approx 0.971 \mbox{ bittiä ja} \\ 
+H(T_{Virheasento}) &= -\left(\frac{4}{4}\log_2\left(\frac{4}{4}\right) + \frac{0}{4}\log_2\left(\frac{0}{4}\right)\right) = 0 \mbox{ bittiä.}
+\end{split}
+\end{equation*}
+Viimeistä riviä laskettaessa törmätään lausekkeeseen $0\log_20$, jolla ei ole määriteltyä arvoa. Informaatioteoriassa tämä saa yleisen
+käytännön mukaisesti arvon 0. Se, että tästä seuraa $H(T_{Virheasento}) = 0$, on helposti ymmärrettävissä, koska kyseisessä tapauksessa
+kaikki alkiot kuuluvat samaan luokkaan P ja näin entropia määritelmän mukaan on $0$.
+
+Nyt on kaikki tarvittava informaatiolisän $IG(A_{Ulkonäkö},S)$ laskemiseksi:
+\begin{equation*}
+\begin{split}
+IG(A_{Ulkonäkö},S) &= H(S) -\sum_{t = 1}^{n} p(T_t)H(T_t) \\
+%                  &= H(S) -\Big( p(T_{Normaali})H(T_{Normaali}) ) + p(T_{Turvonnut})H(T_{Turvonnut}) + p(T_{Virheasento})H(T_{Virheasento}) \Big) \\
+		   &\approx 0.940 - \left( \frac{5}{14}\cdot0.971 + \frac{5}{14}\cdot0.971  + \frac{4}{14}\cdot0 \right) \\
+                   &\approx 0.246.
+\end{split}
+\end{equation*}
+
+Samalla tavalla on mahdollista laskea myös muidenkin attribuuttien suhteen jakamisesta seuraavat informaatiolisät:
+\begin{equation*}
+\begin{split}
+IG(A_{Vammamekanismi},S) &\approx 0.029 \mbox{,}\\
+IG(A_{Kipu},S) &\approx 0.151 \mbox{ ja}\\
+IG(A_{Varaaminen},S) &\approx 0.048 \mbox{.}
+\end{split}
+\end{equation*}
+Koska informaatiolisä $IG(A_{Ulkonäkö},S)$ on suurin, valitsee ID3 ulkonäköattribuutin päätöspuun juuren ehtosolmun attribuutiksi.
+Tässä vaiheessa aikaansaatu päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuuJuuri}. Juuren attribuutin valitsemisen
+jälkeen ID3 siirtyy rekursiivisesti rakentamaan juuren lapsipuita. Lapsipuita on kolme, koska juurisolmun ehtoattribuutilla
+on kolme mahdollista arvoa. Lapsipuiden juuria valittaessa ID3 ei enää ota huomioon koko opetusjoukkoa $S$ vaan sen
+erillisiä osajoukkoja $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$, yksi kutakin lapsipuuta kohden. Tällä tavoin
+rekursiivisesti edeten ID3 rakentaa päätöspuun pysähtyen kunkin lapsipuun kohdalla kappaleessa \ref{sec:ID3}
+mainittuihin pysähtymisehtoihin. Joukot $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$ on esitetty taulukoissa
+\ref{table:OsajoukkoTNormaali}, \ref{table:OsajoukkoTTurvonnut} ja \ref{table:OsajoukkoTVirheasento}.
+Huomionarvoista on, että kun ulkonäköattribuutti $A_{Ulkonäkö}$ on käsitelty ja kiinnitetty puun juureen, sitä ei enää
+uudestaan huomioida juuren lapsia rakennettaessa. Yleensäkin attribuutit voivat esiintyä puun poluissa vain kertaalleen -
+toisaalta sama attribuutti voi esiintyä useassa polussa eri puolilla päätöspuuta.
+ID3:n aikaansaama päätöspuu on esitetty kuvassa XXX (tekemättä).
+
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | L | L | L | L | p{2cm} |} \hline
+    \textbf{Nro} & \textbf{Ulkonäkö} & \textbf{Vamma- mekanismi} & \textbf{Kipu} & \textbf{Varaa- minen} & \textbf{Kuvataan} \\ \hline
+    1 & Normaali & Nyrjähdys & Ei-Kova & Ei & N \\ \hline
+    2 & Normaali & Nyrjähdys & Ei-kova & Kyllä & N \\ \hline
+    3 & Virheasento & Nyrjähdys & Ei-kova & Ei & P \\ \hline
+    4 & Turvonnut & Putoaminen & Ei-kova & Ei & P \\ \hline
+    5 & Turvonnut & Muu & Kova & Ei & P \\ \hline
+    6 & Turvonnut & Muu & Kova & Kyllä & N \\ \hline
+    7 & Virheasento & Muu & Kova & Kyllä & P \\ \hline
+    8 & Normaali & Putoaminen & Ei-kova & Ei & N \\ \hline
+    9 & Normaali & Muu & Kova & Ei & P \\ \hline
+    10 & Turvonnut & Putoaminen & Kova & Ei & P \\ \hline
+    11 & Normaali & Putoaminen & Kova & Kyllä & P \\ \hline
+    12 & Virheasento & Putoaminen & Ei-kova & Kyllä & P \\ \hline
+    13 & Virheasento & Nyrjähdys & Kova & Ei & P \\ \hline
+    14 & Turvonnut & Putoaminen & Ei-kova & Kyllä & N \\ \hline
+    \end{tabular}
+\caption{Esimerkkidata, joka koostu neljäntoista nilkkavammapotilaan tiedoista.}
+\label{table:EsimerkkiData}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{ | l | l | l | l | l | p{2cm} |} \hline
+    \textbf{Attribuutti} & \textbf{Attribuutin arvo} \\ \hline
+    Ulkonäkö & Normaali \\ \hline
+    Vammamekanismi & Nyrjähdys \\ \hline
+    Kipu & Ei-kova \\ \hline
+    Varaaminen & Kyllä \\ \hline
+\end{tabular}  
+\caption{Nilkkavammapotilaan numero 2 attribuuttien arvot}
+\label{table:Nilkkavammapotilas2}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}[H]{ | l | l | l | l | l | p{2cm} |} \hline
+    \textbf{Attribuutti} & \textbf{Attribuutin mahdolliset arvot} \\ \hline
+    Ulkonäkö & Normaali, Turvonnut, Virheasento \\ \hline
+    Vammamekanismi & Nyrjähdys, Putoaminen, Muu \\ \hline
+    Kipu & Kova, Ei-kova \\ \hline
+    Varaaminen & Kyllä, Ei \\ \hline
+\end{tabular} 
+\caption{Nilkkavammapotilastapausten mahdolliset attribuutit ja niiden arvot.}
+\label{table:NilkkavammapotilastapautenAttribuutitJaArvot}
+\end{table}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\tiny, every tree node/.style={text width=2cm, draw,rectangle},
+every leaf node/.style={draw,circle},
+   level distance=2cm,sibling distance=0.1cm,
+   edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}]
+\Tree
+[.{Ulkonäkö?}
+    \edge node[auto=right] {Normaali};
+    [.{?} ]
+    \edge node[auto=left] {Turvonnut};
+    [.{?} ]
+    \edge node[auto=left] {Virheasento};
+    [.{?} ]
+]
+\end{tikzpicture}
+\caption{ID3 on valinnut juurisolmun attribuutin. Seuraavaksi algoritmi alkaa työstämään juuren lapsia.}
+\label{fig:NilkkavammaPaatospuuJuuri}
+\end{figure}
+
+
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | l | l | l | l | p{2cm} |} \hline
+    \textbf{Nro} & \textbf{Vammamekanismi} & \textbf{Kipu} & \textbf{Varaaminen} & \textbf{Kuvataan} \\ \hline
+    1 & Nyrjähdys & Ei-kova & Ei & N \\ \hline
+    2 & Nyrjähdys & Ei-kova & Kyllä & N \\ \hline
+    3 & Putoaminen & Ei-kova & Ei & N \\ \hline
+    4 & Muu & Kova & Ei & P \\ \hline
+    5 & Putoaminen & Kova & Kyllä & P \\ \hline
+    \end{tabular}
+\caption{Opetusjoukon osajoukko $T_{Normaali}$.}
+\label{table:OsajoukkoTNormaali}
+\end{table}
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | l | l | l | l | p{2cm} |} \hline
+    \textbf{Nro} & \textbf{Vammamekanismi} & \textbf{Kipu} & \textbf{Varaaminen} & \textbf{Kuvataan} \\ \hline
+    1 & Putoaminen & Ei-kova & Ei & P \\ \hline
+    2 & Muu & Kova & Ei & P \\ \hline
+    3 & Muu & Kova & Kyllä & N \\ \hline
+    4 & Putoaminen & Kova & Ei & P \\ \hline
+    5 & Putoaminen & Ei-kova & Kyllä & N \\ \hline
+    \end{tabular}
+\caption{Opetusjoukon osajoukko $T_{Turvonnnut}$.}
+\label{table:OsajoukkoTTurvonnut}
+\end{table}
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | l | l | l | l | p{2cm} |} \hline
+    \textbf{Nro} & \textbf{Vammamekanismi} & \textbf{Kipu} & \textbf{Varaaminen} & \textbf{Kuvataan} \\ \hline
+    1 & Nyrjähdys & Ei-kova & Ei & P \\ \hline
+    2 & Muu & Kova & Kyllä & P \\ \hline
+    3 & Putoaminen & Ei-kova & Kyllä & P \\ \hline
+    4 & Nyrjähdys & Kova & Ei & P \\ \hline
+    \end{tabular}
+\caption{Opetusjoukon osajoukko $T_{Virheasento}$.}
+\label{table:OsajoukkoTVirheasento}
+\end{table}
+
+
+
+
+
+\subsection{CART}
+CART \cite{CART} on ID3:n tavoin keskeinen päätöspuuinduktioalgoritmi. Sen toiminta muistuttaa ID3-algoritmia sikäli, että
+samalla tavoin päätöspuun muodostaminen aloitetaan puun juuresta ja rekursiivisesti jatkuu kunnes puu on
+muodostettu. Keskeinen ongelma puuta muodostettaessa sekä CART:ssa että ID3:ssa on päättää puun ehtosolmujen valinnasta,
+jonka seurauksena puu saa muotonsa. Tämäntyyppisellä strategialla toimivia algoritmeja on kutsuttu yhteisellä nimikkeellä TDIDT, joka on
+kirjainlyhenne englanninkielisistä nimestä ``top-down induction of decision trees'' \cite{quinlan}.
+
+CART:n toiminta poikkeaa ID3:n toiminnasta monin tavoin ja on sitä huomattavasti monipuolisempi algoritmi.
+Se muodostaa aina binääripuita eikä ehtosolmujen attribuuttien valinnassa sovelleta yleensä informaatioteoriaa vaan
+kussakin solmussa pyritään aikaansaamaan sellainen joukon jako, jonka seurauksena muodostuvat kaksi osajoukkoa ovat alkuperäistä
+joukkoa ``puhtaampia''. Käytettävä epäpuhtauden mitta riippuu tilanteesta: ID3:n tavoin luokittimena käytettäessä
+epäpuhtauden mittana voidaan käyttää ns. gini-indeksiä tai ns. twoing-indeksiä. Molemmissa periaate on sama:
+joukon epäpuhtaus vähenee kun sen homogeenisuus kasvaa. Epäpuhtaus saa minimiarvon, kun solmun kaikki tapaukset kuuluvat samaan
+luokkaan ja maksimiarvon, kun solmun tapaukset jakautuvat kaikkiin luokkiin tasaisesti.
+
+CART on ID3:a joustavampi attribuuttien ominaisuuksien suhteen. Siinä missä ID3 sallii attribuuttien
+arvoiksi vain ennalta määriteltyjä, CART osaa ottaa huomioon myös näiden arvojen mahdollisen
+ordinaalisuuden ja toisaalta jatkuva-arvoisetkin attribuutit sallitaan. Koska CART muodostaa
+binääripuita, kussakin ehtosolmussa otetaan huomioon vain kaksi attribuuttien mahdollista arvoa. Toisaalta
+attribuutilla voi olla enemmän kuin kaksi mahdollista arvoa, joten sama attribuutti saattaa esiintyä puun
+poluilla useaan kertaan - ID3:ssa attribuutin kaikki arvot käsitellään samassa solmussa ja solmu
+saa aina yhtä monta lasta kuin attribuutilla on mahdollisia arvoja.
+
+Luokittelun lisäksi CART kykenee nimensä mukaisesti muodostamaan myös regressiopuita, joissa pyrkimyksenä
+ei ole luokittelu kategorisiin luokkiin vaan estimoida jatkuva-arvoisen funktion riippuvuus
+attribuuttien arvoista. 
+
+CART-algoritmin kokonaisvaltainen käsittely jää tämän työn ulkopuolelle. Esitellään kuitenkin
+gini-indeksi ja ``epäpuhtauden'' merkitys ehtosolmun valinnassa, jotta ero ID3:n
+informaatioteoriaan perustuvaan menetelmään olisi arvioitavissa tämän työn puitteissa.
+
+Gini-indeksi joukolle $T$, jossa on $n$ luokkaa, määritellään seuraavasti:
+\begin{equation*}
+gini(T) = 1 -\sum_{j=1}^{n} p_j^2 \mbox{,}
+\end{equation*}
+jossa $p_j(t)=\frac{n_j(t)}{n(t)}$ on luokan $j$ osuus solmun $t$ alkioista. Jaetaan joukko $T$ kahteen osajoukkoon
+$T_1$ ja $T_2$, joiden alkioiden lukumäärät ovat $m_1$ ja $m_2$. Jaon gini-indeksi määritellään seuraavasti:
+\begin{equation*}
+gini_{jako}(T) = \frac{m_1}{m_1+m_2}gini(T_1) + \frac{m_2}{m_1+m_2}gini(T_2) \mbox{.}
+\end{equation*}
+Jos solmussa $t$ tehtäisiin jako $s$ seuraisi tästä gini-indexin koheneminen (epäpuhtuden vähentyminen), joka voidaan
+laskea koko joukon $T$ gini-indexin ja jaosta seuraavan gini-indexin erotuksena:
+\begin{equation*}
+\Delta(s,t) = gini(T) - gini_{jako}(T) \mbox{.}
+\end{equation*}
+Jaolla $s$ tarkoitetaan yhtä niistä mahdollisista jaoista, joita voidaan tehdä solmussa $t$.
+CART-algoritmi valitsee solmun $t$ jaoksi sen jaon $s$, josta seuraa suurin $\Delta(s,t)$.
+Valinnan jälkeen ID3-algoritmin tavoin CART jatkaa tämän jälkeen rekursiivisesti solmun $t$
+lapsipuiden solmujen järjestyksen selvittämistä, josta seuraa lopulta kokonainen päätöspuu.
+
+
+% CART ARTICLE: http://bali.cai.swufe.edu.cn/index_files/CART.pdf
+
+
+
+
+\section{Päätöspuiden sovelluksia terveydenhuollossa}
+\label{sec:sovellukset_terveydenhuollossa}
+Esitellään kolme kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
+
+\subsection{Aivoverenkiertopotilaiden ennustaminen}
+Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien
+perusteella. Parhaimmaksi osoittautui päätöspuihin perustuva
+luokitin. Tutkimuksessa käytettiin C4.5-algoritmia, joka on Quinlanin ID3:n pohjalta kehittämä induktioalgoritmi.
+
+Aivoverisuonisairaudet ovat joukko sairauksia, joihin liittyy paljon kuolleisuutta ja elämänlaadun heikentymistä
+muun muassa vammautumisen ja dementoitumisen vuoksi. Keskeinen aivoverisuonisairaus on aivoinfarkti, joka
+voi johtaa pahimmassa tapauksessa kuolemaan mutta lievänäkin erilaisiin neurologisiin vammoihin, kuten
+halvaantumiseen ja liikunta- ja puhekyvyn menettämiseen. Maailmanlaajuisesti aivoverenkierron häiriöt ovat toiseksi yleisin
+kuolinsyy \cite{burdenOfDisease}. Niiden osuus kaikista kuolemista on noin 10\%. Vuoden 2002 tilastojen mukaan
+\cite{aivohalvaustenIlmaantuvuusSuomessa19912002} Suomessa sairastuu vuosittain ensimmäiseen aivohalvaukseen
+\begin{itemize}
+  \item 25–74-vuotiaista 252/100~000 miestä ja 137/100~000 naista,
+  \item 75–84-vuotiaista 1~747/100~000 miestä ja 1~586/100~000 naista,
+  \item yli 85-vuotiaista 3~013/100~000 miestä ja 3~029/100~000 naista.
+\end{itemize}
+Aivoinfarktin kansantaloudellinen merkitys on valtava: elinikäisiksi terveydenhuollon kustannuksiksi
+Suomessa on arvioitu 80 000 euroa ja vuotuisiksi valtakunnallisiksi kustannuksiksi 1,1 miljardia euroa
+\cite{aivoinfarktinKustannuksetTHL}.
+
+Aivoverenkierron häiriöiden kansantaloudellisten ja potilaille niistä koituvien haittojen vuoksi
+menetelmä, jolla voitaisiin ennustaa yksittäisen potilaan kohdalla riski saada kyseisiä häiriöitä,
+olisi luonnollisesti käyttökelpoinen. Riskipotilaisiin voitaisiin kohdistaa ennaltaehkäiseviä
+interventioita ja näin mahdollisesti estää näiden potilaiden kohdalla aivoverenkiertohäiriön
+toteutuminen. Edellä mainitussa artikkelissa \cite{predictiveModelCerebrovascularDisease}
+päädyttiin 493 potilaan tiedoista koostuvassa materiaalissa päätöspuuhun, jossa 29 attribuutin joukosta
+valikoituneiden yhdeksän attribuutin perusteella voitiin ennustaa potilaan kuuluminen
+aivoverenkiertohäiriöpotilaiden joukkoon. Päätöspuu on esitetty kuvassa \ref{fig:AVHpäätöspuu}.
+Puun lehdissä sulkeissa tapausten lukumäärät. Symbolien merkitykset on esitetty taulukossa 
+\ref{table:AVHpäätöspuuSelitteet}.
+
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | p{5cm} |} \hline
+    \textbf{Symboli} & \textbf{Merkitys} \\ \hline
+    Sick & Onko sairautta? \\ \hline
+    dm(D) & Onko sokeritautia? \\ \hline
+    hp(B) & Onko verenpainetautia? \\ \hline
+    lip(B) & Onko hyperlipidemiaa? \\ \hline
+    hd(H) & Onko sepelvaltimotautia? \\ \hline
+    arr(H) & Onko rytmihäiriöitä? \\ \hline
+    mi(H) & Onko ollut sydäninfarktia? \\ \hline
+    car(H) & Onko ollut kardiogeenistä shokkia? \\ \hline
+    bmi & Painoindeksi? \\ \hline
+    N & Ei ole sairautta \\ \hline
+    SM & Aivoverenkiertohäiriö ja kaksi muuta sairautta tai sokeritauti ja yksi muu sairaus BH:n listasta \\ \hline
+    DM & Aivoverenkiertohäiriö ja sokeritauti \\ \hline
+    BH & Aivoverenkiertohäiriö ja yksi muu sairaus (verenpainetauti, reuma, hyperlipidemia, sepelvaltimotauti, rytmihäiriö, sydämen vajaatoiminta, sydäninfarkti) \\ \hline
+    CD & Vain aivoverenkierron häiriö, ei muita sairauksia \\ \hline
+    \end{tabular}
+\caption{Aivoverenkiertopäätöspuun symbolien selitykset.}
+\label{table:AVHpäätöspuuSelitteet}
+\end{table}
+
+\begin{sidewaysfigure}
+\begin{tikzpicture}[font=\fontsize{4.5}{1em}\selectfont, 
+every tree node/.style={text width=0.5cm, draw, rectangle},
+  every leaf node/.style={text width=0.55cm, draw, ellipse},
+  level distance=1.0cm,sibling distance=0.1cm,
+  edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}]
+\Tree
+[.{Sick}
+    \edge node[auto=right] {N};
+    [{N(109)} ]
+    \edge node[auto=left] {Y};
+    [.{dm(D)} 
+       \edge node[midway,left] {Y};
+       [.{hp(B)} 
+          \edge node[midway,left] {Y};
+          [{SM(51)} ]
+          \edge node[midway,right] {N};
+          [.{lip(B)}
+             \edge node[midway,left] {Y};
+             [{SM(7)} ]
+             \edge node[midway,right] {N};
+             [.{hd(H)} 
+                \edge node[midway,left] {Y};
+                [{SM(2)} ]
+                \edge node[midway,right] {N};
+                [.{arr(H)} 
+                   \edge node[midway,left] {Y};
+                   [{SM(2)} ]
+                   \edge node[midway,right] {N};
+                   [.{lib(B)} 
+                      \edge node[midway,left] {Y};
+                      [{SM(3)} ]
+                      \edge node[midway,right] {N};
+                      [{BH(23)} ]
+                   ] 
+                ] 
+             ]
+          ]
+       ]
+       \edge node[midway,right] {N};
+       [.{mi(H)}
+       	   \edge node[midway,left] {Y};
+	   [.{hp(B)} 
+	      \edge node[midway,left] {Y};
+              [{SM(5)} ]
+              \edge node[midway,right] {N};
+              [{BH(6/1)} ] 
+	   ]
+          \edge node[midway,left] {N};
+	  [.{car(H)}
+	     \edge node[midway,left] {Y};
+             [.{hp(B)}
+                 \edge node[midway,left] {Y};
+                 [{SM(9)} ]
+                 \edge node[midway,right] {N};
+                 [.{lip(B)} 
+		     \edge node[midway,left] {Y};
+                     [{SM(2)} ]
+                     \edge node[midway,right] {N};
+                     [{BH(13)} ] 
+                 ]
+              ]
+	     \edge node[midway,right] {N};
+             [.{arr(H)} 
+                \edge node[midway,left] {Y};
+	        [.{hp(B)} 
+	           \edge node[midway,left] {Y};
+                   [{SM(11)} ]
+                   \edge node[midway,right] {N};
+                   [.{lip(B)} 
+                      \edge node[midway,left] {Y};
+                      [{SM(3)} ]
+                      \edge node[midway,right] {N};
+                      [{BH(23)} ] 
+                   ] 
+	        ]
+	        \edge node[midway,right] {N};
+	        [.{hd(H)} 
+	           \edge node[midway,left] {Y};         
+                   [.{hp(B)} 
+                      \edge node[midway,left] {Y};
+                      [.{bmi} 
+                         \edge node[midway,left] {>26.8};
+                         [{SM(1)} ]
+                         \edge node[midway,right] {=<26.8};
+                         [{SM(1)} ] 
+                      ]
+                      \edge node[midway,right] {N};
+                      [{BH(2)} ] 
+                   ] 
+                   \edge node[midway,right] {N};
+                   [{CD(175)} ] 
+	        ]
+             ]
+           ]
+	]
+    ]
+]
+\end{tikzpicture}
+\label{fig:AVHpäätöspuu}
+\caption{Päätöspuu aivoverenkiertohäiriön ennustamiseen.}
+\end{sidewaysfigure}
+
+\subsection{Masennuksen ennustaminen}
+Batterham ym. \cite{BatterhamDepressiveDisorder} 
+
+\section{Yhteenveto}
+Päätöspuut ovat tehokkaita luokittimia. Luokittelijoina päätöspuut ovat siitä erikoisia, että
+tapa, jolla ne aikaansaavat luokittelun, on intuitiivisesti suhteellisen helppo kenen tahansa
+ymmärtää. Puiden rakenteesta, sen solmuista, lehdistä ja poluista on parhaimmassa tapauksessa
+aikaansaatavissa sellaisia, että ne perusteet, jolla päätöspuu aikaansaa luokittelun, ovat
+myös kenen tahansa ymmärrettävissä. Tämän vuoksi on oletettavissa, että erilaisista luokittimista
+juuri päätöspuut saattaisivat soveltua sellaisiin tilanteisiin, jossa päätöspuuta käyttävän
+pitäisi kyetä varmistumaan, että sen tulos on järkeenkäypä. Etenkin terveydenhuollon
+päätöksentekotilaneissa, joissa päätöspuita voitaisiin soveltaa päätöksenteon tukemiseen,
+tällainen verifiointimahdollisuus saattaisi olla juuri se ratkaiseva tekijä, jolla 
+terveydenhuollon ammattilaisten olisi helpompi hyväksyä koneellisia apukeinoja hankalien
+päätöksien tekemiseen. Esimerkkinä terveydenhuollon sovelluksista nostettiin päätöspuu,
+jota voidaan käyttää arvioitaessa potilaiden riskiä sairastua aivoverenkiertohäiriöihin. 
+Puu osoittauti selkeäksi ja sen logiikka järkeenkäyväksi. Muutama lääkäri oli todennut
+puun alustavasti käyttökelpoiseksi, kuitenkaan puuta ei oltu kokeiltu terveydenhuollon
+päivittäisessä toiminnassa, mikä olisi luonnollisesti oleellista se selvittämiseksi,
+onko päätöspuihin perustuvilla luokittimilla ja päätöksenteon tukimenetelmillä
+käyttökelpoisuutta terveydenhuollon kontekstissa.
+
+
+% --- References ---
+%
+% bibtex is used to generate the bibliography. The babplain style
+% will generate numeric references (e.g. [1]) appropriate for theoretical
+% computer science. If you need alphanumeric references (e.g [Tur90]), use
+%
+% \bibliographystyle{babalpha-lf}
+%
+% instead.
+
+\bibliographystyle{babplain-lf}
+\bibliography{references-fi}
+
+
+% --- Appendices ---
+
+% uncomment the following
+
+% \newpage
+% \appendix
+% 
+% \section{Esimerkkiliite}
+
+\end{document}
