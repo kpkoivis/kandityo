@@ -77,7 +77,8 @@
 \theoremstyle{remark}
 \newtheorem*{huom}{Huomautus}
 
-\newcolumntype{L}{>{\centering\arraybackslash}m{2cm}}
+%\newcolumntype{L}{>{\centering\arraybackslash}m{2cm}}
+\newcolumntype{L}{>{\arraybackslash}m{2cm}}
 
 % --- tktltiki2 options ---
 %
@@ -527,9 +528,9 @@ rekursiivisesti edeten ID3 rakentaa päätöspuun pysähtyen kunkin lapsipuun ko
 mainittuihin pysähtymisehtoihin. Joukot $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$ on esitetty taulukoissa
 \ref{table:OsajoukkoTNormaali}, \ref{table:OsajoukkoTTurvonnut} ja \ref{table:OsajoukkoTVirheasento}.
 Huomionarvoista on, että kun ulkonäköattribuutti $A_{Ulkonäkö}$ on käsitelty ja kiinnitetty puun juureen, sitä ei enää
-uudestaan huomioida juuren lapsia rakennettaessa. Yleensäkin attribuutit voivat esiintyä puun poluissa vain kertaalleen -
+uudestaan huomioida juuren lapsipuita rakennettaessa. Yleensäkin attribuutit voivat esiintyä puun poluissa vain kertaalleen -
 toisaalta sama attribuutti voi esiintyä useassa polussa eri puolilla päätöspuuta.
-ID3:n aikaansaama päätöspuu on esitetty kuvassa XXX (tekemättä).
+ID3:n aikaansaama päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuu}.
 
 
 \begin{table}
@@ -590,14 +591,15 @@ every leaf node/.style={draw,circle},
 \Tree
 [.{Ulkonäkö?}
     \edge node[auto=right] {Normaali};
-    [.{?} ]
-    \edge node[auto=left] {Turvonnut};
-    [.{?} ]
+      \node[draw=none,rectangle] {[lapsipuu $T_{Normaali}$]};
     \edge node[auto=left] {Virheasento};
-    [.{?} ]
+      \node[draw=none,rectangle] {[lapsipuu $T_{Virheasento}$]};
+    \edge node[auto=left] {Turvonnut};
+      \node[draw=none,rectangle] {[lapsipuu $T_{Turvonnut}$]};
 ]
 \end{tikzpicture}
-\caption{ID3 on valinnut juurisolmun attribuutin. Seuraavaksi algoritmi alkaa työstämään juuren lapsia.}
+\caption{ID3 on valinnut juurisolmun attribuutin. Seuraavaksi algoritmi alkaa työstämään juuren lapsia.
+Lapsipuut muodostetaan joukkoihin $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$ perustuen.}
 \label{fig:NilkkavammaPaatospuuJuuri}
 \end{figure}
 
@@ -644,14 +646,41 @@ every leaf node/.style={draw,circle},
 \label{table:OsajoukkoTVirheasento}
 \end{table}
 
-
-
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\tiny, every tree node/.style={align=center, text width=2cm, draw,rectangle},
+   every leaf node/.style={align=center, text width=0.55cm, draw, ellipse},
+   level distance=1.5cm,sibling distance=2cm,
+   edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}]
+\Tree
+[.{Ulkonäkö?}
+    \edge node[auto=right] {Normaali};
+    [.{Kipu?}
+      \edge node[auto=right] {Kova};
+	[{P} ]
+      \edge node[auto=left] {Ei-kova};
+	[{N} ]
+    ]
+    \edge node[auto=right] {Virheasento};
+    [{P} ]
+    \edge node[auto=left] {Turvonnut};
+    [.{Varaaminen?}
+      \edge node[auto=right] {Ei};
+	[{P} ]
+      \edge node[auto=left] {Kyllä};
+	[{N} ]
+    ]
+]
+\end{tikzpicture}
+\caption{ID3:n aikaansaama päätöspuu taulukon \ref{table:EsimerkkiData} nilkkavammadatasta.}
+\label{fig:NilkkavammaPaatospuu}
+\end{figure}
 
 
 \subsection{CART}
-CART \cite{CART} on ID3:n tavoin keskeinen päätöspuuinduktioalgoritmi. Sen toiminta muistuttaa ID3-algoritmia sikäli, että
+CART \cite{CART} on ID3:n ja sen jälkeläisten C4.5:n ja C5.0:n tavoin keskeinen päätöspuuinduktioalgoritmi. Sen toiminta muistuttaa ID3-algoritmia sikäli, että
 samalla tavoin päätöspuun muodostaminen aloitetaan puun juuresta ja rekursiivisesti jatkuu kunnes puu on
-muodostettu. Keskeinen ongelma puuta muodostettaessa sekä CART:ssa että ID3:ssa on päättää puun ehtosolmujen valinnasta,
+muodostettu. Oleellinen ongelma puuta muodostettaessa sekä CART:ssa että ID3:ssa on päättää puun ehtosolmujen valinnasta,
 jonka seurauksena puu saa muotonsa. Tämäntyyppisellä strategialla toimivia algoritmeja on kutsuttu yhteisellä nimikkeellä TDIDT, joka on
 kirjainlyhenne englanninkielisistä nimestä ``top-down induction of decision trees'' \cite{quinlan}.
 
@@ -697,11 +726,6 @@ Jaolla $s$ tarkoitetaan yhtä niistä mahdollisista jaoista, joita voidaan tehd�
 CART-algoritmi valitsee solmun $t$ jaoksi sen jaon $s$, josta seuraa suurin $\Delta(s,t)$.
 Valinnan jälkeen ID3-algoritmin tavoin CART jatkaa tämän jälkeen rekursiivisesti solmun $t$
 lapsipuiden solmujen järjestyksen selvittämistä, josta seuraa lopulta kokonainen päätöspuu.
-
-
-% CART ARTICLE: http://bali.cai.swufe.edu.cn/index_files/CART.pdf
-
-
 
 
 \section{Päätöspuiden sovelluksia terveydenhuollossa}
