@@ -893,6 +893,18 @@ every tree node/.style={text width=0.5cm, draw, rectangle},
 \subsection{Masennuksen ennustaminen}
 Batterham ym. \cite{BatterhamDepressiveDisorder} 
 
+\subsection{Silmätautidiagnostiikan päätöksentuki}
+Kabari ja Nwachukwu \cite{EyeDiseaseDiagnosis} kehittivät silmätautien diagnostiikkaan päätöksentuen menetelmiä,
+jossa ensin neuroverkkoa käytettiin diagnostiikkaan liittyvien luokitteluongelmien ratkaisuun ja tämän jälkeen
+päätöspuuta luokittelun saattamiseksi symboliseen, ymmärrettävään muotoon. Tällaisessa asetelmassa neuroverkko
+ensin koulutetaan ja testataan tavalliseen tapaan opetus- ja testijoukoilla, jonka jälkeen kyseistä yleistämiseen
+kykenevää neuroverkkoa käytetään uusien opetus- ja testijoukkojen muodostamiseen. Tämä tapahtuu yksinkertaisesti
+syöttämällä neuroverkolle uusia tapauksia ja tallentamalla neuroverkon aikaansaama luokitus. Tätä uutta dataa
+käytetään sitten päätöspuun muodostamisessa ja testaamisessa. Tässä tapauksessa päätöspuun induktiossa käytettiin
+Quinlanin C4.5-algoritmia.
+
+
+
 \section{Yhteenveto}
 Päätöspuut ovat tehokkaita luokittimia. Luokittelijoina päätöspuut ovat siitä erikoisia, että
 tapa, jolla ne aikaansaavat luokittelun, on intuitiivisesti suhteellisen helppo kenen tahansa
