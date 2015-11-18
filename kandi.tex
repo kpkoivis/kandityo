@@ -903,6 +903,36 @@ syöttämällä neuroverkolle uusia tapauksia ja tallentamalla neuroverkon aikaa
 käytetään sitten päätöspuun muodostamisessa ja testaamisessa. Tässä tapauksessa päätöspuun induktiossa käytettiin
 Quinlanin C4.5-algoritmia.
 
+<<KESKEN>>
+Esimerkki silmätautidiagnostiikkapäätöspuusta on esitetty kuvassa \ref{fig:SilmasairausPaatospuu}.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\tiny, every tree node/.style={align=center, text width=2cm, draw,rectangle},
+   every leaf node/.style={align=center, text width=0.55cm, draw, ellipse},
+   level distance=1.5cm,sibling distance=2cm,
+   edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}]
+\Tree
+[.{Silmäongelma}
+    \edge node[auto=right] {};
+    [.{Silmä kipeä ja punainen}
+      \edge node[auto=right] {Kova};
+	[.{Silmä kipeä} ]
+      \edge node[auto=left] {Ei-kova};
+	[{N} ]
+    ]
+    \edge node[auto=left] {};
+    [.{Kivuton silmä}
+      \edge node[auto=right] {Ei};
+	[{P} ]
+      \edge node[auto=left] {Kyllä};
+	[{N} ]
+    ]
+]
+\end{tikzpicture}
+\caption{Esimerkki silmätautien diagnostiikassa käytettävästä päätöksentukipäätöspuusta.}
+\label{fig:SilmasairausPaatospuu}
+\end{figure}
 
 
 \section{Yhteenveto}
