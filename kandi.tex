@@ -412,6 +412,7 @@ Pseudokoodiesitys ID3-algoritmista on esitettu kuvassa \ref{fig:pseudokoodi}.
 
 
 \subsection{ID3 ja päätöspuun muodostaminen esimerkkidatan pohjalta}
+\label{sec:ID3esimerkki}
 
 ID3-algoritmin toiminnan havainnollistamiseksi seuraavassa muodostetaan päätöspuu käyttäen taulukossa \ref{table:EsimerkkiData} olevaa esimerkkidataa.
 Kyseinen esimerkkidata on kuvitteellinen ja on terveydenhuollon kontekstiin mukailtu versio Quinlanin artikkelissa
@@ -456,7 +457,10 @@ Attribuutilla $A$
 on $n$ mahdollista arvoa. Informaatiolisä on joukon $S$ entropian ja osajoukkoihin jaosta seuraavan
 entropian erotus, joka lasketaan kaavalla
 
-\[ IG(A,S) = H(S) -\sum_{t = 1}^{n} p(T_t)H(T_t) \mbox{,}\]
+\begin{equation}
+\label{eq:informationGain}
+IG(A,S) = H(S) -\sum_{t = 1}^{n} p(T_t)H(T_t) \mbox{,}
+\end{equation}
 jossa $p(T_t)$ on joukon $T_t$ alkioiden osuus kaikista joukon $S$ alkioista ja $H(T_t)$ joukon $T_t$
 entropia. 
 
@@ -688,7 +692,7 @@ CART:n toiminta poikkeaa ID3:n toiminnasta monin tavoin ja on sitä huomattavast
 Se muodostaa aina binääripuita eikä ehtosolmujen attribuuttien valinnassa sovelleta yleensä informaatioteoriaa vaan
 kussakin solmussa pyritään aikaansaamaan sellainen joukon jako, jonka seurauksena muodostuvat kaksi osajoukkoa ovat alkuperäistä
 joukkoa ``puhtaampia''. Käytettävä epäpuhtauden mitta riippuu tilanteesta: ID3:n tavoin luokittimena käytettäessä
-epäpuhtauden mittana voidaan käyttää ns. gini-indeksiä tai ns. twoing-indeksiä. Molemmissa periaate on sama:
+epäpuhtauden mittana voidaan käyttää ns. Gini-epäpuhtautta tai ns. twoing-indeksiä. Molemmissa periaate on sama:
 joukon epäpuhtaus vähenee kun sen homogeenisuus kasvaa. Epäpuhtaus saa minimiarvon, kun solmun kaikki tapaukset kuuluvat samaan
 luokkaan ja maksimiarvon, kun solmun tapaukset jakautuvat kaikkiin luokkiin tasaisesti.
 
@@ -705,27 +709,36 @@ ei ole luokittelu kategorisiin luokkiin vaan estimoida jatkuva-arvoisen funktion
 attribuuttien arvoista. 
 
 CART-algoritmin kokonaisvaltainen käsittely jää tämän työn ulkopuolelle. Esitellään kuitenkin
-gini-indeksi ja ``epäpuhtauden'' merkitys ehtosolmun valinnassa, jotta ero ID3:n
-informaatioteoriaan perustuvaan menetelmään olisi arvioitavissa tämän työn puitteissa.
+Gini-epäpuhtauden merkitys ehtosolmun valinnassa, jotta vertailu ID3:n
+informaatioteoriaan perustuvaan menetelmään olisi mahdollista tämän työn puitteissa.
 
-Gini-indeksi joukolle $T$, jossa on $n$ luokkaa, määritellään seuraavasti:
+Gini-epäpuhtaus joukolle $T$, jossa on $n$ luokkaa, määritellään seuraavasti:
 \begin{equation*}
-gini(T) = 1 -\sum_{j=1}^{n} p_j^2 \mbox{,}
+\textrm{gini}(T) = 1 -\sum_{j=1}^{n} p_j^2 \mbox{,}
 \end{equation*}
-jossa $p_j(t)=\frac{n_j(t)}{n(t)}$ on luokan $j$ osuus solmun $t$ alkioista. Jaetaan joukko $T$ kahteen osajoukkoon
-$T_1$ ja $T_2$, joiden alkioiden lukumäärät ovat $m_1$ ja $m_2$. Jaon gini-indeksi määritellään seuraavasti:
-\begin{equation*}
-gini_{jako}(T) = \frac{m_1}{m_1+m_2}gini(T_1) + \frac{m_2}{m_1+m_2}gini(T_2) \mbox{.}
-\end{equation*}
-Jos solmussa $t$ tehtäisiin jako $s$ seuraisi tästä gini-indexin koheneminen (epäpuhtuden vähentyminen), joka voidaan
-laskea koko joukon $T$ gini-indexin ja jaosta seuraavan gini-indexin erotuksena:
-\begin{equation*}
-\Delta(s,t) = gini(T) - gini_{jako}(T) \mbox{.}
-\end{equation*}
-Jaolla $s$ tarkoitetaan yhtä niistä mahdollisista jaoista, joita voidaan tehdä solmussa $t$.
+jossa $p_j=\frac{n_j}{n}$ on luokan $j$ osuus joukon $T$ alkioista. Jaetaan joukko $T$ kahteen osajoukkoon
+$T_1$ ja $T_2$, joiden alkioiden lukumäärät ovat $m_1$ ja $m_2$. Jaon Gini-epäpuhtaus määritellään seuraavasti:
+\begin{equation}
+\label{eq:giniJako}
+\textrm{gini}_{\textrm{jako}}(T) = \left(\frac{m_1}{m_1+m_2}\right)\textrm{gini}(T_1) + \left(\frac{m_2}{m_1+m_2}\right)\textrm{gini}(T_2) \mbox{.}
+\end{equation}
+Jos solmussa $t$ tehtäisiin jako $s$ seuraisi tästä Gini-epäpuhtauden koheneminen (epäpuhtuden vähentyminen), joka voidaan
+laskea koko joukon $T$ Gini-epäpuhtauden ja jaosta seuraavan Gini-epäpuhtauden erotuksena:
+\begin{equation}
+\label{eq:giniDelta}
+\Delta(s,t) = \textrm{gini}(T) - \textrm{gini}_{\textrm{jako}}(T) \mbox{.}
+\end{equation}
+Jaolla $s$ tarkoitetaan yhtä niistä mahdollisista jaoista, joka voidaan tehdä solmussa $t$.
 CART-algoritmi valitsee solmun $t$ jaoksi sen jaon $s$, josta seuraa suurin $\Delta(s,t)$.
 Valinnan jälkeen ID3-algoritmin tavoin CART jatkaa tämän jälkeen rekursiivisesti solmun $t$
 lapsipuiden solmujen järjestyksen selvittämistä, josta seuraa lopulta kokonainen päätöspuu.
+
+Kun yhtälön \ref{eq:giniJako} termi ${\textrm{gini}_{\textrm{jako}}(T)}$ sijoitetaan yhtälöön \ref{eq:giniDelta}
+saadaan lopputulokseksi yhtälö, joka vastaa ID3-algoritmin informaatiolisän yhtälöä \ref{eq:informationGain} (kts.
+kappale \ref{sec:ID3esimerkki} edellä). CART-algoritmin pyrkimys epäpuhtauden vähentämiseen ja ID3-algoritmin
+vastaava pyrkimys informaatiolisän maksimoimiseen ovat luonteeltaan samankaltaisia lähestymistapoja jakaa
+joukko osiin päätöspuuta muodostettaessa. Gini-epäpuhtauden ja informaatiolisän tarkempi vertailu jää kuitenkin
+tämän työn ulkopuolelle.
 
 
 \section{Päätöspuiden sovelluksia terveydenhuollossa}
@@ -894,46 +907,128 @@ every tree node/.style={text width=0.5cm, draw, rectangle},
 Batterham ym. \cite{BatterhamDepressiveDisorder} 
 
 \subsection{Silmätautidiagnostiikan päätöksentuki}
-Kabari ja Nwachukwu \cite{EyeDiseaseDiagnosis} kehittivät silmätautien diagnostiikkaan päätöksentuen menetelmiä,
-jossa ensin neuroverkkoa käytettiin diagnostiikkaan liittyvien luokitteluongelmien ratkaisuun ja tämän jälkeen
-päätöspuuta luokittelun saattamiseksi symboliseen, ymmärrettävään muotoon. Tällaisessa asetelmassa neuroverkko
+Kabari ja Nwachukwu \cite{EyeDiseaseDiagnosis} kehittivät päätöspuita silmätautien diagnostiikan päätöksentukea varten.
+Kehitetyssä menetelmässä käytettiin ensin neuroverkkoja diagnostiikkaan liittyvien luokitteluongelmien ratkaisuun ja
+tämän jälkeen päätöspuita luokittelun saattamiseksi symboliseen, ymmärrettävään muotoon. Tällaisessa asetelmassa neuroverkko
 ensin koulutetaan ja testataan tavalliseen tapaan opetus- ja testijoukoilla, jonka jälkeen kyseistä yleistämiseen
 kykenevää neuroverkkoa käytetään uusien opetus- ja testijoukkojen muodostamiseen. Tämä tapahtuu yksinkertaisesti
 syöttämällä neuroverkolle uusia tapauksia ja tallentamalla neuroverkon aikaansaama luokitus. Tätä uutta dataa
 käytetään sitten päätöspuun muodostamisessa ja testaamisessa. Tässä tapauksessa päätöspuun induktiossa käytettiin
 Quinlanin C4.5-algoritmia.
 
-<<KESKEN>>
-Esimerkki silmätautidiagnostiikkapäätöspuusta on esitetty kuvassa \ref{fig:SilmasairausPaatospuu}.
+Esimerkki riisutusta silmätautidiagnostiikkapäätöspuusta on esitetty kuvassa \ref{fig:SilmasairausPaatospuu}.
+Päätöspuu on erilainen kuin aikaisemmin esitetyt, koska sitä on muokattu ymmärrettävyyden parantamiseksi.
+Kulku solmusta seuraavaan tapahtuu solmun väittämän ollessa totta. Päätöspuun käytettävyys ja ymmärrettävyys
+on samantyyppinen kuin kuvan \ref{fig:Vuokaaviopäätöspuu} vuokaaviomainen päätöksentuen esitys.
 
-\begin{figure}
+Menetelmän kehittäjien mukaan päätöspuista voisi olla hyötyä erilaisissa tilanteissa, esimerkiksi
+silmätautien erikoislääkärit voisivat käyttää niitä omien diagnoosien tarkistamisessa, erikoistuvat lääkärit
+opetusmenetelmänä vertaamalla omia diagnooseja päätöspuun diagnooseihin ja muut lääkärit suuntaa-antavana
+tukena epävarmuuden vallitessa.
+
+
+\begin{sidewaysfigure}
 \centering
 \begin{tikzpicture}[font=\tiny, every tree node/.style={align=center, text width=2cm, draw,rectangle},
-   every leaf node/.style={align=center, text width=0.55cm, draw, ellipse},
-   level distance=1.5cm,sibling distance=2cm,
+   every leaf node/.style={align=center, text width=1.5cm, draw, ellipse},
+   level distance=1.3cm,sibling distance=0.2cm,
    edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}]
 \Tree
-[.{Silmäongelma}
+[.{Eye problem}
     \edge node[auto=right] {};
-    [.{Silmä kipeä ja punainen}
-      \edge node[auto=right] {Kova};
-	[.{Silmä kipeä} ]
-      \edge node[auto=left] {Ei-kova};
-	[{N} ]
+    [.{Pain in eye and redness or pink colour of eye}
+      \edge node[auto=right] {};
+	[.{Swelling of eye}
+	   \edge node[auto=right] {};
+	   [.{Sensitivity to light}
+	      \edge node[auto=right] {};
+	      [.{Blurred vision}
+	      	 \edge node[auto=right] {};
+	         [.{Cloudy substance formed in front of eye lens}
+	            \edge node[auto=right] {};
+	            [.{Watering or discharge from eye}
+	               \edge node[auto=right] {};
+	               [{Corneal ulcer} ]
+	            ]
+	         ]
+	         \edge node[auto=right] {};
+	         [.{Irritation, itchy, scratchy or burning sensation of eye}
+	            \edge node[auto=right] {};
+	            [{Blepharitis} ]
+	         ]
+	      ]
+	   ]
+	 ]
+      \edge node[auto=left] {};
+	[.{NOT Swelling of eye}
+	   \edge node[auto=left] {};
+	   [.{Floaters in eye, flashes of light, halos around light}
+	      \edge node[auto=left] {};
+	      [.{Sensitivity to light (photophobia)}
+	   	 \edge node[auto=left] {};
+	         [.{Blurred vision}
+	   	    \edge node[auto=left] {};
+	            [.{Blurred vision improves with blinking of eye}
+	               \edge node[auto=left] {};
+	               [.{Discomfort after long concentration use of eye}
+	                  \edge node[auto=left] {};
+	                  [{Uveitis} ]
+	               ]
+	            ]
+	         ]
+	      ]
+	      \edge node[auto=left] {};
+	      [.{Decrease in peripheral field of view}
+	   	 \edge node[auto=left] {};
+	         [.{Family histories of the eye problem}
+	   	    \edge node[auto=left] {};
+	            [.{Age greater than 45 years}
+	               \edge node[auto=left] {};
+	               [{Glaucoma} ]
+	            ]
+	         ]
+	      ] 
+	   ]
+	    ]
     ]
     \edge node[auto=left] {};
-    [.{Kivuton silmä}
-      \edge node[auto=right] {Ei};
-	[{P} ]
-      \edge node[auto=left] {Kyllä};
-	[{N} ]
+    [.{NOT pain in eye}
+      \edge node[auto=right] {};
+	[.{Blurred vision}
+	   \edge node[auto=right] {};
+	   [.{Distorted vision}
+              \edge node[auto=right] {};
+	      [.{Family histories of the eye problem}
+	         \edge node[auto=right] {};
+	         [.{Slow recovery of vision after exposure to bright light}
+	      	    \edge node[auto=right] {};
+	            [{Muscular degeneration} ]
+	         ]
+	      ]
+	      \edge node[auto=right] {};
+	      [.{NOT Family histories of the eye problem}
+	      	 \edge node[auto=right] {};
+	         [{Keratoconus} ]
+	      ]
+	    ]
+            \edge node[auto=left] {};
+	    [.{Redness or pink color of eye} 
+	       \edge node[auto=left] {};
+	       [.{Irritation, itchy, scratchy or burning sensation of eye} 
+	          \edge node[auto=left] {};
+	          [.{Watering or discharge from eye} 
+	       	     \edge node[auto=left] {};
+	             [{Pink eye} ]
+	         ]
+	      ]    
+	    ]
+       ]
     ]
 ]
 \end{tikzpicture}
 \caption{Esimerkki silmätautien diagnostiikassa käytettävästä päätöksentukipäätöspuusta.}
 \label{fig:SilmasairausPaatospuu}
-\end{figure}
-
+\end{sidewaysfigure}
 
 \section{Yhteenveto}
 Päätöspuut ovat tehokkaita luokittimia. Luokittelijoina päätöspuut ovat siitä erikoisia, että
