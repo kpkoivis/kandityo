@@ -89,16 +89,39 @@
 \author{Kristian Koivisto}
 \date{\today}
 \level{Kandidaatintutkielma}
-\abstract{Tässä työssä perehdytään päätöspuiden perusteisiin, niiden muodostamisessa käytettyihin induktioalgoritmeihin
-sekä päätöspuiden sovellukseen terveydenhuollossa. Induktioalgoritmeista ID3:een perehdytään perusteellisemmin.
-Päätöspuut ovat tehokkaita luokittimia ja niitä voidaan käyttää päätöksenteon apukeinona tilanteissa, joissa
-päätöksenteko on luonteeltaan luokittelua - esimerkiksi lääketieteellisessä diagnostiikassa on usein kyse siitä, mihin
-luokkaan tai diagnoosiin potilastapaus kuuluu sen ominaisuuksien perusteella. Erilaisista luokittimista päätöspuut
-saattavat soveltua terveydenhuoltoon paremmin kuin muun tyyppiset luokittimet, koska niiden toiminta on
-visualisoitavissa ja lyhyen perehtymisen jälkeen on usein suhteellisen helppo kenen tahansa nähdä, mihin päätöspuun
-toiminta ja luokittelu perustuu. Tällä on merkitystä, koska terveydenhuollossa erilaisia päätöksentuen apukeinoja on
-ollut vaikea istuttaa sairaaloiden ja muiden toimintayksiköiden prosesseihin. Yksi syy tähän on, että terveydenhuollon
-ammattilaisten on vaikea luottaa sovelluksiin, joiden tarjoaman tuloksen syitä ja perusteita ei itse pysty verifioimaan.}
+\abstract{Tässä tutkielmassa perehdytään päätöspuiden perusteisiin, niiden muodostamisessa
+käytettyihin induktioalgoritmeihin sekä muutamiin esimerkkeihin niiden soveltamisesta
+terveydenhuollossa päätöksenteon tuen menetetelmänä. 
+Induktioalgoritmeista ID3:een perehdytään perusteellisemmin mutta myös CART-algoritmin
+pääpiirteet esitellään.
+
+Päätöspuut ovat ennen kaikkea tehokkaita luokittimia. Niiden soveltaminen päätöksenteon
+tuen menetelmänä on mahdollista tilanteissa, joissa päätöksenteko on niin ikään
+luonteeltaan luokittelua. Tällaisia tilanteita on terveydenhuollossa runsaasti -
+jo lääketieteellisen diagnoosin tekeminen on usein juuri luokitteluongelma, jossa
+lääkäri pyrkii potilaan ominaisuuksien perusteella päätymään oikeaan diagnoosiin
+monien mahdollisten diagnoosien joukosta. Soveltamismahdollisuuksia on kuitenkin
+paljon muitakin, kuten esimerkiksi potilaiden luokittelu riskiryhmiin
+tiettyjen päätetapahtumien suhteen.
+
+Erilaisista luokittimista päätöspuut saattavat soveltua terveydenhuollon
+päätöksentukimenetelmän perustaksi paremmin kuin muun tyyppiset luokittimet, kuten
+neuroverkot tai tukivektorikoneet, koska niiden
+toimintalogiikka on visualisoitavissa ja lyhyen perehtymisen jälkeen on usein suhteellisen
+helppoa kenen tahansa nähdä, mihin päätöspuun tarjoama päätöksentuki perustuu. Tällä on merkitystä,
+koska vaikka terveydenhuoltoon on yritetty istuttaa erilaisia päätöksenteon tuen menetelmiä jo
+vuosikymmeniä, ne eivät juurikaan ole saavuttaneet suosiota. Eräänä syynä tähän on pidetty
+terveydenhuollon ammattilaisten kohdistamaa epäluuloa sellaisiin välineisiin, joiden tarjoamien
+tuloksien oikeellisuutta ei itse pääse verifioimaan. Tässä mielessä päätöspuiden ominaisuudet
+saattavat tehdä niihin perustuvista päätöksenteon tuen menetelmistä hyväksyttävämpiä kuin muista
+menetelmistä.
+
+Päätöspuiden käytöllä päätöksenteon tuen menetelmänä on vankka teoreettinen pohja.
+Kirjallisuudessa on myöskin kuvattu käyttökelpoisia ratkaisuja moniin terveydenhuollossa
+esiintyviin päätöksenteon tuesta hyötyviin ongelmiin. Kuitenkin menetelmien jalkauttaminen
+terveydenhuollon prosesseihin on hajanaista ja näyttö mentelmien hyödyllisyydestä
+ristiriitaista.
+}
 
 
 % The following can be used to specify keywords and classification of the paper:
@@ -744,6 +767,7 @@ tämän työn ulkopuolelle.
 \section{Päätöspuiden sovelluksia terveydenhuollossa}
 \label{sec:sovellukset_terveydenhuollossa}
 Esitellään kolme kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
+\cite{JamaCDSreview}
 
 \subsection{Aivoverenkiertopotilaiden ennustaminen}
 Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien
@@ -1032,22 +1056,27 @@ tukena epävarmuuden vallitessa.
 
 \section{Yhteenveto}
 Päätöspuut ovat tehokkaita luokittimia. Luokittelijoina päätöspuut ovat siitä erikoisia, että
-tapa, jolla ne aikaansaavat luokittelun, on intuitiivisesti suhteellisen helppo kenen tahansa
+tapa, jolla ne aikaansaavat luokittelun, on intuitiivisesti usein suhteellisen helppo kenen tahansa
 ymmärtää. Puiden rakenteesta, sen solmuista, lehdistä ja poluista on parhaimmassa tapauksessa
 aikaansaatavissa sellaisia, että ne perusteet, jolla päätöspuu aikaansaa luokittelun, ovat
-myös kenen tahansa ymmärrettävissä. Tämän vuoksi on oletettavissa, että erilaisista luokittimista
-juuri päätöspuut saattaisivat soveltua sellaisiin tilanteisiin, jossa päätöspuuta käyttävän
+myös kenen tahansa hahmotettavissa. Tämän vuoksi on oletettavissa, että erilaisista luokittimista
+juuri päätöspuut saattaisivat soveltua parhaiten sellaisiin tilanteisiin, jossa päätöspuuta käyttävän
 pitäisi kyetä varmistumaan, että sen tulos on järkeenkäypä. Etenkin terveydenhuollon
 päätöksentekotilaneissa, joissa päätöspuita voitaisiin soveltaa päätöksenteon tukemiseen,
 tällainen verifiointimahdollisuus saattaisi olla juuri se ratkaiseva tekijä, jolla 
 terveydenhuollon ammattilaisten olisi helpompi hyväksyä koneellisia apukeinoja hankalien
-päätöksien tekemiseen. Esimerkkinä terveydenhuollon sovelluksista nostettiin päätöspuu,
-jota voidaan käyttää arvioitaessa potilaiden riskiä sairastua aivoverenkiertohäiriöihin. 
-Puu osoittauti selkeäksi ja sen logiikka järkeenkäyväksi. Muutama lääkäri oli todennut
-puun alustavasti käyttökelpoiseksi, kuitenkaan puuta ei oltu kokeiltu terveydenhuollon
-päivittäisessä toiminnassa, mikä olisi luonnollisesti oleellista se selvittämiseksi,
-onko päätöspuihin perustuvilla luokittimilla ja päätöksenteon tukimenetelmillä
-käyttökelpoisuutta terveydenhuollon kontekstissa.
+päätöksien tekemiseen. 
+
+Kirjallisuudessa on kuvattu runsaasti päätöspuihin perustuvia ratkaisuja terveydenhuollossa
+esiintyviin tukea kaipaaviin päätöksentekotilanteisiin. Tässä tutkielmassa esiteltiin näistä kolme.
+Näyttöä näiden hyödyllisyydestä terveydenhuollossa ei kuitenkaan oltu pyritty osoittamaan eikä kuvauksia
+menetelmien jalkauttamisesta käytäntöön ollut saatavilla. Ylipäätään näyttö päätöspuihin ja
+muihin menetelmiin perustuvien päätöksenteon tuen apukeinojen hyödyistä on joko
+kuvaamatta tai ristiriitaista. Jotta päätöksenteon tuen menetelmät - päätöspuihin tai muihin
+menetelmiin perustuvat - saisivat jalansijaa ja uskottavuutta terveydenhuollossa, olisi tarpeen osoittaa
+niiden hyödyllisyys laadukkailla tutkimuksilla.
+
+
 
 
 % --- References ---
