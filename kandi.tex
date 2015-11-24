@@ -90,17 +90,18 @@
 \date{\today}
 \level{Kandidaatintutkielma}
 \abstract{Tässä tutkielmassa perehdytään päätöspuiden perusteisiin, niiden muodostamisessa
-käytettyihin induktioalgoritmeihin sekä muutamiin esimerkkeihin niiden soveltamisesta
+käytettyihin induktioalgoritmeihin sekä muutamiin esimerkkeihin, joissa niitä on sovellettu
 terveydenhuollossa päätöksenteon tuen menetetelmänä. 
 Induktioalgoritmeista ID3:een perehdytään perusteellisemmin mutta myös CART-algoritmin
 pääpiirteet esitellään.
 
-Päätöspuut ovat ennen kaikkea tehokkaita luokittimia. Niiden soveltaminen päätöksenteon
-tuen menetelmänä on mahdollista tilanteissa, joissa päätöksenteko on niin ikään
-luonteeltaan luokittelua. Tällaisia tilanteita on terveydenhuollossa runsaasti -
-jo lääketieteellisen diagnoosin tekeminen on usein juuri luokitteluongelma, jossa
-lääkäri pyrkii potilaan ominaisuuksien perusteella päätymään oikeaan diagnoosiin
-monien mahdollisten diagnoosien joukosta. Soveltamismahdollisuuksia on kuitenkin
+Päätöspuut ovat ennen kaikkea tehokkaita luokittimia. Niiden käyttäminen päätöksenteon
+tuen apukeinona on mahdollista tilanteissa, joissa päätöksenteko on luonteeltaan juuri
+luokitteluongelma: yhteen vaihtoehtoon päätymistä monien mahdollisten vaihtoehtojen joukosta.
+Tällaisia tilanteita on terveydenhuollossa runsaasti -
+jo lääketieteellisen diagnoosin tekeminen on usein juuri luokittelua, jossa
+lääkäri pyrkii potilaan ominaisuuksien perusteella päätymään oikeaan diagnoosiin.
+Soveltamismahdollisuuksia on kuitenkin
 paljon muitakin, kuten esimerkiksi potilaiden luokittelu riskiryhmiin
 tiettyjen päätetapahtumien suhteen.
 
@@ -119,8 +120,8 @@ menetelmistä.
 Päätöspuiden käytöllä päätöksenteon tuen menetelmänä on vankka teoreettinen pohja.
 Kirjallisuudessa on myöskin kuvattu käyttökelpoisia ratkaisuja moniin terveydenhuollossa
 esiintyviin päätöksenteon tuesta hyötyviin ongelmiin. Kuitenkin menetelmien jalkauttaminen
-terveydenhuollon prosesseihin on hajanaista ja näyttö mentelmien hyödyllisyydestä
-ristiriitaista.
+terveydenhuollon prosesseihin on hajanaista ja näyttö menetelmien hyödyllisyydestä
+olematonta tai ristiriitaista.
 }
 
 
@@ -496,8 +497,8 @@ tietojen perusteella nilkkavammapotilasjoukon $S$ entropia on
 Lasketaan seuraavaksi, minkä attribuutin perusteella koko nilkkavammapotilaiden joukko kannattaa jakaa osajoukkoihin,
 eli minkä attribuutin suhteen jakamisesta seuraa suurin informaatiolisä. Aloitetaan attribuutista \textit{Ulkonäkö},
 joka taulukon \ref{table:NilkkavammapotilastapautenAttribuutitJaArvot} mukaisesti
-voi saada arvot \textit{Normaali, Turvonnut} tai \textit{Virheasento}. Informaatiolisän $IG(A_{Ulkonäkö},S)$ laskemiseksi
-tarvitaan $p(T_{Normaali})$, $p(T_{Turvonnut})$ ja $p(T_{Virheasento})$, eli attribuutin \textit{Ulkonäkö} saamien arvojen
+voi saada arvot \textit{Normaali, Turvonnut} tai \textit{Virheasento}. Informaatiolisän $IG(A_{\textit{Ulkonäkö}},S)$
+laskemiseksi tarvitaan $p(T_{Normaali})$, $p(T_{Turvonnut})$ ja $p(T_{Virheasento})$, eli attribuutin \textit{Ulkonäkö} saamien arvojen
 osuus kaikista joukon $S$ alkioista. Taulukosta \ref{table:EsimerkkiData} voidaan laskea, että
 
 \begin{equation*}
@@ -528,10 +529,10 @@ Viimeistä riviä laskettaessa törmätään lausekkeeseen $0\log_20$, jolla ei 
 käytännön mukaisesti arvon 0. Se, että tästä seuraa $H(T_{Virheasento}) = 0$, on helposti ymmärrettävissä, koska kyseisessä tapauksessa
 kaikki alkiot kuuluvat samaan luokkaan P ja näin entropia määritelmän mukaan on $0$.
 
-Nyt on kaikki tarvittava informaatiolisän $IG(A_{Ulkonäkö},S)$ laskemiseksi:
+Nyt on kaikki tarvittava informaatiolisän $IG(A_{\textit{Ulkonäkö}},S)$ laskemiseksi:
 \begin{equation*}
 \begin{split}
-IG(A_{Ulkonäkö},S) &= H(S) -\sum_{t = 1}^{n} p(T_t)H(T_t) \\
+IG(A_{\textit{Ulkonäkö}},S) &= H(S) -\sum_{t = 1}^{n} p(T_t)H(T_t) \\
 %                  &= H(S) -\Big( p(T_{Normaali})H(T_{Normaali}) ) + p(T_{Turvonnut})H(T_{Turvonnut}) + p(T_{Virheasento})H(T_{Virheasento}) \Big) \\
 		   &\approx 0.940 - \left( \frac{5}{14}\cdot0.971 + \frac{5}{14}\cdot0.971  + \frac{4}{14}\cdot0 \right) \\
                    &\approx 0.246.
@@ -546,7 +547,7 @@ IG(A_{Kipu},S) &\approx 0.151 \mbox{ ja}\\
 IG(A_{Varaaminen},S) &\approx 0.048 \mbox{.}
 \end{split}
 \end{equation*}
-Koska informaatiolisä $IG(A_{Ulkonäkö},S)$ on suurin, valitsee ID3 ulkonäköattribuutin päätöspuun juuren ehtosolmun attribuutiksi.
+Koska informaatiolisä $IG(A_{\textit{Ulkonäkö}},S)$ on suurin, valitsee ID3 ulkonäköattribuutin päätöspuun juuren ehtosolmun attribuutiksi.
 Tässä vaiheessa aikaansaatu päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuuJuuri}. Juuren attribuutin valitsemisen
 jälkeen ID3 siirtyy rekursiivisesti rakentamaan juuren lapsipuita. Lapsipuita on kolme, koska juurisolmun ehtoattribuutilla
 on kolme mahdollista arvoa. Lapsipuiden juuria valittaessa ID3 ei enää ota huomioon koko opetusjoukkoa $S$ vaan sen
@@ -554,7 +555,7 @@ erillisiä osajoukkoja $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$, yks
 rekursiivisesti edeten ID3 rakentaa päätöspuun pysähtyen kunkin lapsipuun kohdalla kappaleessa \ref{sec:ID3}
 mainittuihin pysähtymisehtoihin. Joukot $T_{Normaali}$, $T_{Turvonnut}$ ja $T_{Virheasento}$ on esitetty taulukoissa
 \ref{table:OsajoukkoTNormaali}, \ref{table:OsajoukkoTTurvonnut} ja \ref{table:OsajoukkoTVirheasento}.
-Huomionarvoista on, että kun ulkonäköattribuutti $A_{Ulkonäkö}$ on käsitelty ja kiinnitetty puun juureen, sitä ei enää
+Huomionarvoista on, että kun ulkonäköattribuutti $A_{\textit{Ulkonäkö}}$ on käsitelty ja kiinnitetty puun juureen, sitä ei enää
 uudestaan huomioida juuren lapsipuita rakennettaessa. Yleensäkin attribuutit voivat esiintyä puun poluissa vain kertaalleen -
 toisaalta sama attribuutti voi esiintyä useassa polussa eri puolilla päätöspuuta.
 ID3:n aikaansaama päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuu}.
@@ -563,7 +564,7 @@ ID3:n aikaansaama päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuu
 \begin{table}
 \centering
     \begin{tabular}{ | l | L | L | L | L | p{2cm} |} \hline
-    \textbf{Nro} & \textbf{Ulkonäkö} & \textbf{Vamma- mekanismi} & \textbf{Kipu} & \textbf{Varaa- minen} & \textbf{Kuvataan} \\ \hline
+    \textbf{Nro} & \textbf{\text{Ulkonäkö}} & \textbf{Vamma- mekanismi} & \textbf{Kipu} & \textbf{Varaa- minen} & \textbf{Kuvataan} \\ \hline
     1 & Normaali & Nyrjähdys & Ei-Kova & Ei & N \\ \hline
     2 & Normaali & Nyrjähdys & Ei-kova & Kyllä & N \\ \hline
     3 & Virheasento & Nyrjähdys & Ei-kova & Ei & P \\ \hline
@@ -764,27 +765,22 @@ joukko osiin päätöspuuta muodostettaessa. Gini-epäpuhtauden ja informaatioli
 tämän työn ulkopuolelle.
 
 
-\section{Päätöspuiden sovelluksia terveydenhuollossa}
+\section{Päätöspuiden päätöksenteon tuen sovelluksia terveydenhuollossa}
 \label{sec:sovellukset_terveydenhuollossa}
 Esitellään kolme kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
 \cite{JamaCDSreview}
 
 \subsection{Aivoverenkiertopotilaiden ennustaminen}
-Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien
-perusteella. Parhaimmaksi osoittautui päätöspuihin perustuva
-luokitin. Tutkimuksessa käytettiin C4.5-algoritmia, joka on Quinlanin ID3:n pohjalta kehittämä induktioalgoritmi.
+Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää
+aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien perusteella. Parhaimmaksi
+osoittautui päätöspuihin perustuva luokitin. Tutkimuksessa käytettiin
+C4.5-algoritmia \cite{QuinlanC4_5}, joka on Quinlanin ID3:n pohjalta kehittämä induktioalgoritmi.
 
-Aivoverisuonisairaudet ovat joukko sairauksia, joihin liittyy paljon kuolleisuutta ja elämänlaadun heikentymistä
-muun muassa vammautumisen ja dementoitumisen vuoksi. Keskeinen aivoverisuonisairaus on aivoinfarkti, joka
+Aivoverisuonisairaudet ovat joukko sairauksia, joihin liittyy merkittävää kuolleisuutta ja elämänlaadun heikentymistä
+muun muassa vammautumisen vuoksi. Keskeinen aivoverisuonisairaus on aivoinfarkti, joka
 voi johtaa pahimmassa tapauksessa kuolemaan mutta lievänäkin erilaisiin neurologisiin vammoihin, kuten
 halvaantumiseen ja liikunta- ja puhekyvyn menettämiseen. Maailmanlaajuisesti aivoverenkierron häiriöt ovat toiseksi yleisin
-kuolinsyy \cite{burdenOfDisease}. Niiden osuus kaikista kuolemista on noin 10\%. Vuoden 2002 tilastojen mukaan
-\cite{aivohalvaustenIlmaantuvuusSuomessa19912002} Suomessa sairastuu vuosittain ensimmäiseen aivohalvaukseen
-\begin{itemize}
-  \item 25–74-vuotiaista 252/100~000 miestä ja 137/100~000 naista,
-  \item 75–84-vuotiaista 1~747/100~000 miestä ja 1~586/100~000 naista,
-  \item yli 85-vuotiaista 3~013/100~000 miestä ja 3~029/100~000 naista.
-\end{itemize}
+kuolinsyy \cite{burdenOfDisease}. Niiden osuus kaikista kuolemista on noin 10\%.
 Aivoinfarktin kansantaloudellinen merkitys on valtava: elinikäisiksi terveydenhuollon kustannuksiksi
 Suomessa on arvioitu 80 000 euroa ja vuotuisiksi valtakunnallisiksi kustannuksiksi 1,1 miljardia euroa
 \cite{aivoinfarktinKustannuksetTHL}.
@@ -798,7 +794,9 @@ päädyttiin 493 potilaan tiedoista koostuvassa materiaalissa päätöspuuhun, j
 valikoituneiden yhdeksän attribuutin perusteella voitiin ennustaa potilaan kuuluminen
 aivoverenkiertohäiriöpotilaiden joukkoon. Päätöspuu on esitetty kuvassa \ref{fig:AVHpäätöspuu}.
 Puun lehdissä sulkeissa tapausten lukumäärät. Symbolien merkitykset on esitetty taulukossa 
-\ref{table:AVHpäätöspuuSelitteet}.
+\ref{table:AVHpäätöspuuSelitteet}. Kirjoittajien mukaan joukko lääkäreitä piti päätöspuuta
+käyttökelpoisena ja relevanttina - kuitenkaan sen jalkauttamista käytännön potilastyöhön
+saati näyttöä sen hyödyllisyydestä ei esitetty.
 
 
 \begin{table}
