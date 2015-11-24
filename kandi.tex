@@ -350,7 +350,7 @@ algoritmissa arvot voisivat olla jatkuvia esimerkiksi väliltä 0 - 10. Kukin ta
 samalla joukolla attribuutteja, kullakin tapauksella on näille omat arvonsa. Tarvittavien attribuuttien määrä
 riippuu käsillä olevasta luokitteluongelmasta: joskus luokittelun onnistuminen saattaa vaatia
 tapausten kuvailua usealla kymmenellä attribuutilla, toisinaan saatetaan selvitä huomattavasti pienemmällä
-määrällä. Voi käydä niinkin, että luokittelu ei onnistu laisinkaan käytettävissä olevilla attribuuteilla.
+määrällä. Voi käydä niinkin, ettei luokittelu onnistu laisinkaan käytettävissä olevilla attribuuteilla.
 
 Valmiissa päätöspuussa opetusjoukon tapausten attribuutteja vastaavat puun ehtosolmujen ehdot ja solmun lapsia
 attribuutin mahdolliset arvot. Mikäli rintakipuesimerkin päätöspuu olisi olemassa, siinä saattaisi olla - mutta
@@ -767,8 +767,18 @@ tämän työn ulkopuolelle.
 
 \section{Päätöspuiden päätöksenteon tuen sovelluksia terveydenhuollossa}
 \label{sec:sovellukset_terveydenhuollossa}
-Esitellään kolme kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
-\cite{JamaCDSreview}
+Esitellään kaksi kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
+Kummankaan hyödyllisyyttä terveydenhuollossa ei ole pyritty osoittamaan: kyseessä on lähinnä
+esimerkkejä menetelmistä, joita käyttäen saadaan aikaiseksi hyödylliseltä vaikuttavia päätöspuita.
+Yleensäkin Gargin ym. tekemän katsauksen \cite{JamaCDSreview} mukaan erilaisten päätöksenteon tuen
+menetelmien hyödylliyydestä on joko olematonta tai ristiriitaista näyttöä. Menetelmistä näyttäisi
+usein olevan usein hyötyä terveydenhuollon ammattilaisten suoriutumisessa omassa työssään mutta
+näyttöä hyödyistä potilaille ei juurikaan ollut. Näin tässä esitellyt päätöspuutkin ovat
+lähinnä esimerkkejä päätöspuiden potentiaalista päätöksentuen menetelminä - tarvittaisiin
+vielä tutkimuksia, jossa menetelmien hyödyt pyrittäisiin osoittamaan, jotta
+puiden todellisesta hyödystä saataisiin käsitys.
+
+
 
 \subsection{Aivoverenkiertopotilaiden ennustaminen}
 Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää
@@ -776,8 +786,8 @@ aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien perusteella. P
 osoittautui päätöspuihin perustuva luokitin. Tutkimuksessa käytettiin
 C4.5-algoritmia \cite{QuinlanC4_5}, joka on Quinlanin ID3:n pohjalta kehittämä induktioalgoritmi.
 
-Aivoverisuonisairaudet ovat joukko sairauksia, joihin liittyy merkittävää kuolleisuutta ja elämänlaadun heikentymistä
-muun muassa vammautumisen vuoksi. Keskeinen aivoverisuonisairaus on aivoinfarkti, joka
+Aivoverisuonisairaudet ovat joukko sairauksia, joihin liittyy merkittävää kuolleisuutta ja elämänlaadun heikentymistä.
+Keskeinen aivoverisuonisairaus on aivoinfarkti, joka
 voi johtaa pahimmassa tapauksessa kuolemaan mutta lievänäkin erilaisiin neurologisiin vammoihin, kuten
 halvaantumiseen ja liikunta- ja puhekyvyn menettämiseen. Maailmanlaajuisesti aivoverenkierron häiriöt ovat toiseksi yleisin
 kuolinsyy \cite{burdenOfDisease}. Niiden osuus kaikista kuolemista on noin 10\%.
@@ -790,9 +800,9 @@ menetelmä, jolla voitaisiin ennustaa yksittäisen potilaan kohdalla riski saada
 olisi luonnollisesti käyttökelpoinen. Riskipotilaisiin voitaisiin kohdistaa ennaltaehkäiseviä
 interventioita ja näin mahdollisesti estää näiden potilaiden kohdalla aivoverenkiertohäiriön
 toteutuminen. Edellä mainitussa artikkelissa \cite{predictiveModelCerebrovascularDisease}
-päädyttiin 493 potilaan tiedoista koostuvassa materiaalissa päätöspuuhun, jossa 29 attribuutin joukosta
+päädyttiin 493 potilaan tiedoista koostuvassa aineistossa päätöspuuhun, jossa 29 attribuutin joukosta
 valikoituneiden yhdeksän attribuutin perusteella voitiin ennustaa potilaan kuuluminen
-aivoverenkiertohäiriöpotilaiden joukkoon. Päätöspuu on esitetty kuvassa \ref{fig:AVHpäätöspuu}.
+aivoverenkiertohäiriöiden suhteen riskiryhmään. Päätöspuu on esitetty kuvassa \ref{fig:AVHpäätöspuu}.
 Puun lehdissä sulkeissa tapausten lukumäärät. Symbolien merkitykset on esitetty taulukossa 
 \ref{table:AVHpäätöspuuSelitteet}. Kirjoittajien mukaan joukko lääkäreitä piti päätöspuuta
 käyttökelpoisena ja relevanttina - kuitenkaan sen jalkauttamista käytännön potilastyöhön
@@ -925,8 +935,8 @@ every tree node/.style={text width=0.5cm, draw, rectangle},
 \caption{Päätöspuu aivoverenkiertohäiriön ennustamiseen.}
 \end{sidewaysfigure}
 
-\subsection{Masennuksen ennustaminen}
-Batterham ym. \cite{BatterhamDepressiveDisorder} 
+%\subsection{Masennuksen ennustaminen}
+%Batterham ym. \cite{BatterhamDepressiveDisorder} 
 
 \subsection{Silmätautidiagnostiikan päätöksentuki}
 Kabari ja Nwachukwu \cite{EyeDiseaseDiagnosis} kehittivät päätöspuita silmätautien diagnostiikan päätöksentukea varten.
@@ -940,13 +950,15 @@ Quinlanin C4.5-algoritmia.
 
 Esimerkki riisutusta silmätautidiagnostiikkapäätöspuusta on esitetty kuvassa \ref{fig:SilmasairausPaatospuu}.
 Päätöspuu on erilainen kuin aikaisemmin esitetyt, koska sitä on muokattu ymmärrettävyyden parantamiseksi.
-Kulku solmusta seuraavaan tapahtuu solmun väittämän ollessa totta. Päätöspuun käytettävyys ja ymmärrettävyys
-on samantyyppinen kuin kuvan \ref{fig:Vuokaaviopäätöspuu} vuokaaviomainen päätöksentuen esitys.
+Kulku solmusta seuraavaan tapahtuu solmun väittämän ollessa totta.
 
+Päätöspuun käytettävyys ja ymmärrettävyys
+on samantyyppinen kuin kuvan \ref{fig:Vuokaaviopäätöspuu} vuokaaviomainen päätöksentuen esitys.
 Menetelmän kehittäjien mukaan päätöspuista voisi olla hyötyä erilaisissa tilanteissa, esimerkiksi
 silmätautien erikoislääkärit voisivat käyttää niitä omien diagnoosien tarkistamisessa, erikoistuvat lääkärit
 opetusmenetelmänä vertaamalla omia diagnooseja päätöspuun diagnooseihin ja muut lääkärit suuntaa-antavana
-tukena epävarmuuden vallitessa.
+tukena epävarmuuden vallitessa. Kuitenkaan kuvausta menetelmän testaamisesta terveydenhuollon
+kontekstissa tai näyttöä sen hyödyllisyydestä ei esitetty.
 
 
 \begin{sidewaysfigure}
@@ -1052,6 +1064,9 @@ tukena epävarmuuden vallitessa.
 \label{fig:SilmasairausPaatospuu}
 \end{sidewaysfigure}
 
+
+
+
 \section{Yhteenveto}
 Päätöspuut ovat tehokkaita luokittimia. Luokittelijoina päätöspuut ovat siitä erikoisia, että
 tapa, jolla ne aikaansaavat luokittelun, on intuitiivisesti usein suhteellisen helppo kenen tahansa
@@ -1066,7 +1081,7 @@ terveydenhuollon ammattilaisten olisi helpompi hyväksyä koneellisia apukeinoja
 päätöksien tekemiseen. 
 
 Kirjallisuudessa on kuvattu runsaasti päätöspuihin perustuvia ratkaisuja terveydenhuollossa
-esiintyviin tukea kaipaaviin päätöksentekotilanteisiin. Tässä tutkielmassa esiteltiin näistä kolme.
+esiintyviin tukea kaipaaviin päätöksentekotilanteisiin. Tässä tutkielmassa esiteltiin näistä kaksi.
 Näyttöä näiden hyödyllisyydestä terveydenhuollossa ei kuitenkaan oltu pyritty osoittamaan eikä kuvauksia
 menetelmien jalkauttamisesta käytäntöön ollut saatavilla. Ylipäätään näyttö päätöspuihin ja
 muihin menetelmiin perustuvien päätöksenteon tuen apukeinojen hyödyistä on joko
