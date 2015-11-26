@@ -103,7 +103,7 @@ jo lääketieteellisen diagnoosin tekeminen on usein juuri luokittelua, jossa
 lääkäri pyrkii potilaan ominaisuuksien perusteella päätymään oikeaan diagnoosiin.
 Soveltamismahdollisuuksia on kuitenkin
 paljon muitakin, kuten esimerkiksi potilaiden luokittelu riskiryhmiin
-tiettyjen päätetapahtumien suhteen.
+tiettyjen tapahtumien suhteen.
 
 Erilaisista luokittimista päätöspuut saattavat soveltua terveydenhuollon
 päätöksentukimenetelmän perustaksi paremmin kuin muun tyyppiset luokittimet, kuten
@@ -203,7 +203,7 @@ ja tukivektorikoneilla. Päätöspuu on kuitenkin terveydenhuollon kontekstissa 
 mielenkiintoinen vaihtoehto, sillä sen toimintaperiaate on helposti kenen tahansa ymmärrettävissä,
 siitä voidaan piirtää visuaalinen esitys ja lyhyen perehtymisen jälkeen on usein suhteellisen helppoa nähdä, miksi
 päätöspuu päätyy tiettyyn tulokseen. Tämä on tärkeää, sillä vaikka monien tekoälysovellusten
-on osoitettu kykenevän parempaan päätöksentekoon kuin terveydenhuollon ammattilaiset ja näin
+on osoitettu kykenevän parempaan päätöksentekoon kuin terveydenhuollon ammattilaisten ja näin
 niistä saattaisi hyvinkin olla hyötyä, niiden istuttaminen sairaaloiden ja muiden terveydenhuollon
 toimintayksiköiden prosesseihin ei ole onnistunut odotetunlaisesti.
 Tämän on arveltu johtuvan osittain siitä, että päätöksentekotilanteissa, joihin liittyy epävarmuutta
@@ -341,10 +341,10 @@ hyödyntäisivät samaa opetusjoukkoa - vertaamalla puiden luokittelukykyä test
 voidaan löytää puista se, joka kussakin päätöksentekotilanteessa toimii parhaiten.
 
 Kukin opetusjoukon tapaus esitellään induktioalgoritmeille kokoelmana attribuutteja, joilla kullakin on arvo.
-Eri induktioalgorimit eroavat toisistaan siinä, minkälaisia arvoja attribuutit voivat saada:
+Eri induktioalgoritmit eroavat toisistaan siinä, minkälaisia arvoja attribuutit voivat saada:
 jotkut pystyvät käsittelemään reaaliarvoisia attribuutteja, toiset kokonaislukuarvoisia. Kuitenkin esimerkiksi
 ID3 pystyy käsittelemään vain sellaisia attribuutteja, joiden arvot tulevat ennalta määritellystä
-joukosta. Esimerkki tällaisesta attribuutista voisi olla rintakivun kovuus: ID3:n tapauksessa kovuus voisi
+äärellisestä joukosta. Esimerkki tällaisesta attribuutista voisi olla rintakivun kovuus: ID3:n tapauksessa kovuus voisi
 saada vain ennalta määriteltyjä arvoja, kuten ``kova'', ``keskikova'' ja ``lievä'', kehittyneemmässä
 algoritmissa arvot voisivat olla jatkuvia esimerkiksi väliltä 0 - 10. Kukin tapaus kuvaillaan
 samalla joukolla attribuutteja, kullakin tapauksella on näille omat arvonsa. Tarvittavien attribuuttien määrä
@@ -384,8 +384,8 @@ Algoritmin rekursio päättyy seuraavissa tilanteissa (pysähtymisehdot):
   \item Kaikki jäljellä oleva opetusjoukon osajoukon alkiot kuuluvat samaan luokkaan (+ tai -): muodostetaan puun lehti, jonka luokaksi
   asetetaan kyseisten alkioiden luokka.
   \item Kaikki mahdolliset attribuutit on jo kulutettu loppuun mutta osajoukon alkiot eivät silti kuulu samaan luokkaan (+ tai -): muodostetaan puun lehti,
-  jonka luokaksi valikoituu se luokka, johon suurempi osa osajoukon alkioista kuuluu
-  \item osajoukko on tyhjä: muodostetaan lehti, jonka luokaksi valitaan lehden vanhemman osajoukon alkioiden yleisin luokka.
+  jonka luokaksi valikoituu se luokka, johon suurempi osa osajoukon alkioista kuuluu.
+  \item Osajoukko on tyhjä: muodostetaan lehti, jonka luokaksi valitaan lehden vanhemman osajoukon alkioiden yleisin luokka.
 \end{enumerate}
 
 ID3-algoritmia käytettäessä käytettävissä olevista esimerkkitapauksista erotetaan satunnaisesti tietty määrä tapauksia; muodostettua
@@ -397,7 +397,7 @@ Quinlanin artikkelin mukaan \cite{quinlan} tällä tavoin toimien on mahdollista
 strategialla toimien voisi käydä niin, ettei ID3 päätyisi lainkaan sopivaan päätöspuuhun; saman artikkelin
 mukaan silloisilla ID3:lle syötetyillä joukoilla ei olisi kertaakaan käynyt niin.
 
-Pseudokoodiesitys ID3-algoritmista on esitettu kuvassa \ref{fig:pseudokoodi}.
+Pseudokoodiesitys ID3-algoritmista on esitetty kuvassa \ref{fig:pseudokoodi}.
 
 
 \begin{figure}
@@ -440,7 +440,30 @@ Pseudokoodiesitys ID3-algoritmista on esitettu kuvassa \ref{fig:pseudokoodi}.
 
 ID3-algoritmin toiminnan havainnollistamiseksi seuraavassa muodostetaan päätöspuu käyttäen taulukossa \ref{table:EsimerkkiData} olevaa esimerkkidataa.
 Kyseinen esimerkkidata on kuvitteellinen ja on terveydenhuollon kontekstiin mukailtu versio Quinlanin artikkelissa
-\cite{quinlan} olevasta samantyyppisestä esimerkistä. 
+\cite{quinlan} olevasta samantyyppisestä esimerkistä.
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | L | L | L | L | p{2cm} |} \hline
+    \textbf{Nro} & \textbf{\text{Ulkonäkö}} & \textbf{Vamma- mekanismi} & \textbf{Kipu} & \textbf{Varaa- minen} & \textbf{Kuvataan} \\ \hline
+    1 & Normaali & Nyrjähdys & Ei-Kova & Ei & N \\ \hline
+    2 & Normaali & Nyrjähdys & Ei-kova & Kyllä & N \\ \hline
+    3 & Virheasento & Nyrjähdys & Ei-kova & Ei & P \\ \hline
+    4 & Turvonnut & Putoaminen & Ei-kova & Ei & P \\ \hline
+    5 & Turvonnut & Muu & Kova & Ei & P \\ \hline
+    6 & Turvonnut & Muu & Kova & Kyllä & N \\ \hline
+    7 & Virheasento & Muu & Kova & Kyllä & P \\ \hline
+    8 & Normaali & Putoaminen & Ei-kova & Ei & N \\ \hline
+    9 & Normaali & Muu & Kova & Ei & P \\ \hline
+    10 & Turvonnut & Putoaminen & Kova & Ei & P \\ \hline
+    11 & Normaali & Putoaminen & Kova & Kyllä & P \\ \hline
+    12 & Virheasento & Putoaminen & Ei-kova & Kyllä & P \\ \hline
+    13 & Virheasento & Nyrjähdys & Kova & Ei & P \\ \hline
+    14 & Turvonnut & Putoaminen & Ei-kova & Kyllä & N \\ \hline
+    \end{tabular}
+\caption{Esimerkkidata, joka koostuu neljäntoista nilkkavammapotilaan tiedoista.}
+\label{table:EsimerkkiData}
+\end{table}
 
 Esimerkkidatassa on neljäntoista päivystyspoliklinikalla hoidetun nilkkavammapotilaan tietoja sekä tieto siitä, katsoiko potilaan
 päivystyspoliklinikalla hoitanut lääkäri tarpeelliseksi pyytää potilaan nilkasta röntgentutkimusta vai ei (viimeisen
@@ -455,7 +478,7 @@ lyhyen arvion perusteella, jolloin potilas voisi käydä nilkan kuvauksessa enne
 Tällöin lääkäri voisi hoitaa potilaan yhden kontaktin perusteella: vastaanotolla olisi potilastapauksen ratkaisemiseksi
 kaikki tarpeellinen tieto valmiina. Ilman kuvaamistarpeen ennakointia tarvittaisiin kaksi lääkärin ja potilaan
 kohtaamista: ensimmäisessä todetaan, ettei potilastapausta voida ratkaista ilman kuvaamista ja toinen potilastapauksen
-lopullista hoitoa varten. Yhden kontakin malli johtaisi potilaan nopeampaan hoitoon ja olisi rajallisten resurssien
+lopullista hoitoa varten. Yhden kontaktin malli johtaisi potilaan nopeampaan hoitoon ja olisi rajallisten resurssien
 tehokasta käyttöä.
 
 Taulukosta nähdään, että kullakin potilastapauksella on neljä attribuuttia ja taulukosta voidaan katsoa kunkin potilaan
@@ -474,9 +497,9 @@ jossa $X$ on joukon $S$ alkioiden mahdollisten luokkien joukko ja $p(x)$ niiden 
 joukossa $S$ joiden luokka on $x \in X$. Entropian yksikkönä on tapana käyttää bittiä.
 
 ID3-algoritmissa joukko $S$ halutaan jakaa sen attribuutin $A$ suhteen osajoukkoihin
-$T_1, T_2, ..., T_t \subset T = S$, joista seuraa suurin informaatiolisä $IG(A,S)$.
-Edellä joukot $T_1, T_2, ..., T_t$ ovat erillisiä ja 
-$T_1\cup T_2\cup ...\cup T_t = \cup_{t=1}^{n}T_t = S$.
+$T_1, T_2, ..., T_n \subset T = S$, joista seuraa suurin informaatiolisä $IG(A,S)$.
+Edellä joukot $T_1, T_2, ..., T_n$ ovat erillisiä ja 
+$T_1\cup T_2\cup ...\cup T_n = \cup_{t=1}^{n}T_t = S$.
 Attribuutilla $A$
 on $n$ mahdollista arvoa. Informaatiolisä on joukon $S$ entropian ja osajoukkoihin jaosta seuraavan
 entropian erotus, joka lasketaan kaavalla
@@ -561,28 +584,7 @@ toisaalta sama attribuutti voi esiintyä useassa polussa eri puolilla päätösp
 ID3:n aikaansaama päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuu}.
 
 
-\begin{table}
-\centering
-    \begin{tabular}{ | l | L | L | L | L | p{2cm} |} \hline
-    \textbf{Nro} & \textbf{\text{Ulkonäkö}} & \textbf{Vamma- mekanismi} & \textbf{Kipu} & \textbf{Varaa- minen} & \textbf{Kuvataan} \\ \hline
-    1 & Normaali & Nyrjähdys & Ei-Kova & Ei & N \\ \hline
-    2 & Normaali & Nyrjähdys & Ei-kova & Kyllä & N \\ \hline
-    3 & Virheasento & Nyrjähdys & Ei-kova & Ei & P \\ \hline
-    4 & Turvonnut & Putoaminen & Ei-kova & Ei & P \\ \hline
-    5 & Turvonnut & Muu & Kova & Ei & P \\ \hline
-    6 & Turvonnut & Muu & Kova & Kyllä & N \\ \hline
-    7 & Virheasento & Muu & Kova & Kyllä & P \\ \hline
-    8 & Normaali & Putoaminen & Ei-kova & Ei & N \\ \hline
-    9 & Normaali & Muu & Kova & Ei & P \\ \hline
-    10 & Turvonnut & Putoaminen & Kova & Ei & P \\ \hline
-    11 & Normaali & Putoaminen & Kova & Kyllä & P \\ \hline
-    12 & Virheasento & Putoaminen & Ei-kova & Kyllä & P \\ \hline
-    13 & Virheasento & Nyrjähdys & Kova & Ei & P \\ \hline
-    14 & Turvonnut & Putoaminen & Ei-kova & Kyllä & N \\ \hline
-    \end{tabular}
-\caption{Esimerkkidata, joka koostu neljäntoista nilkkavammapotilaan tiedoista.}
-\label{table:EsimerkkiData}
-\end{table}
+
 
 \begin{table}
 \centering
@@ -593,7 +595,7 @@ ID3:n aikaansaama päätöspuu on esitetty kuvassa \ref{fig:NilkkavammaPaatospuu
     Kipu & Ei-kova \\ \hline
     Varaaminen & Kyllä \\ \hline
 \end{tabular}  
-\caption{Nilkkavammapotilaan numero 2 attribuuttien arvot}
+\caption{Nilkkavammapotilaan numero 2 attribuuttien arvot.}
 \label{table:Nilkkavammapotilas2}
 \end{table}
 
@@ -712,7 +714,7 @@ muodostettu. Oleellinen ongelma puuta muodostettaessa sekä CART:ssa että ID3:s
 jonka seurauksena puu saa muotonsa. Tämäntyyppisellä strategialla toimivia algoritmeja on kutsuttu yhteisellä nimikkeellä TDIDT, joka on
 kirjainlyhenne englanninkielisistä nimestä ``top-down induction of decision trees'' \cite{quinlan}.
 
-CART:n toiminta poikkeaa ID3:n toiminnasta monin tavoin ja on sitä huomattavasti monipuolisempi algoritmi.
+CART poikkeaa toiminnaltaan ID3:sta monin tavoin ja on sitä huomattavasti monipuolisempi algoritmi.
 Se muodostaa aina binääripuita eikä ehtosolmujen attribuuttien valinnassa sovelleta yleensä informaatioteoriaa vaan
 kussakin solmussa pyritään aikaansaamaan sellainen joukon jako, jonka seurauksena muodostuvat kaksi osajoukkoa ovat alkuperäistä
 joukkoa ``puhtaampia''. Käytettävä epäpuhtauden mitta riippuu tilanteesta: ID3:n tavoin luokittimena käytettäessä
@@ -740,7 +742,7 @@ Gini-epäpuhtaus joukolle $T$, jossa on $n$ luokkaa, määritellään seuraavast
 \begin{equation*}
 \textrm{gini}(T) = 1 -\sum_{j=1}^{n} p_j^2 \mbox{,}
 \end{equation*}
-jossa $p_j=\frac{n_j}{n}$ on luokan $j$ osuus joukon $T$ alkioista. Jaetaan joukko $T$ kahteen osajoukkoon
+jossa $p_j={n_j/n}$ on luokan $j$ osuus joukon $T$ alkioista. Jaetaan joukko $T$ kahteen osajoukkoon
 $T_1$ ja $T_2$, joiden alkioiden lukumäärät ovat $m_1$ ja $m_2$. Jaon Gini-epäpuhtaus määritellään seuraavasti:
 \begin{equation}
 \label{eq:giniJako}
@@ -767,11 +769,11 @@ tämän työn ulkopuolelle.
 
 \section{Päätöspuiden päätöksenteon tuen sovelluksia terveydenhuollossa}
 \label{sec:sovellukset_terveydenhuollossa}
-Esitellään kaksi kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
+Tässä kappaleessa esitellään kaksi kirjallisuudessa kuvattua päätöspuiden sovellusta terveydenhuollon kontekstissa.
 Kummankaan hyödyllisyyttä terveydenhuollossa ei ole pyritty osoittamaan: kyseessä on lähinnä
 esimerkkejä menetelmistä, joita käyttäen saadaan aikaiseksi hyödylliseltä vaikuttavia päätöspuita.
 Yleensäkin Gargin ym. tekemän katsauksen \cite{JamaCDSreview} mukaan erilaisten päätöksenteon tuen
-menetelmien hyödylliyydestä on joko olematonta tai ristiriitaista näyttöä. Menetelmistä näyttäisi
+menetelmien hyödyllisyydestä on joko olematonta tai ristiriitaista näyttöä. Menetelmistä näyttäisi
 usein olevan usein hyötyä terveydenhuollon ammattilaisten suoriutumisessa omassa työssään mutta
 näyttöä hyödyistä potilaille ei juurikaan ollut. Näin tässä esitellyt päätöspuutkin ovat
 lähinnä esimerkkejä päätöspuiden potentiaalista päätöksentuen menetelminä - tarvittaisiin
@@ -781,11 +783,6 @@ puiden todellisesta hyödystä saataisiin käsitys.
 
 
 \subsection{Aivoverenkiertopotilaiden ennustaminen}
-Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää
-aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien perusteella. Parhaimmaksi
-osoittautui päätöspuihin perustuva luokitin. Tutkimuksessa käytettiin
-C4.5-algoritmia \cite{QuinlanC4_5}, joka on Quinlanin ID3:n pohjalta kehittämä induktioalgoritmi.
-
 Aivoverisuonisairaudet ovat joukko sairauksia, joihin liittyy merkittävää kuolleisuutta ja elämänlaadun heikentymistä.
 Keskeinen aivoverisuonisairaus on aivoinfarkti, joka
 voi johtaa pahimmassa tapauksessa kuolemaan mutta lievänäkin erilaisiin neurologisiin vammoihin, kuten
@@ -799,8 +796,15 @@ Aivoverenkierron häiriöiden kansantaloudellisten ja potilaille niistä koituvi
 menetelmä, jolla voitaisiin ennustaa yksittäisen potilaan kohdalla riski saada kyseisiä häiriöitä,
 olisi luonnollisesti käyttökelpoinen. Riskipotilaisiin voitaisiin kohdistaa ennaltaehkäiseviä
 interventioita ja näin mahdollisesti estää näiden potilaiden kohdalla aivoverenkiertohäiriön
-toteutuminen. Edellä mainitussa artikkelissa \cite{predictiveModelCerebrovascularDisease}
-päädyttiin 493 potilaan tiedoista koostuvassa aineistossa päätöspuuhun, jossa 29 attribuutin joukosta
+toteutuminen.
+
+Duen-Yian ym. \cite{predictiveModelCerebrovascularDisease} vertasivat kolmea eri menetelmää
+aivoverisuonisairauksien ennustamiseksi potilaiden ominaisuuksien perusteella. Menetelmät olivat
+päätöspuu, bayesiläinen päättely ja takaisinkytketty neuroverkko. Parhaimmaksi
+osoittautui päätöspuuhun perustuva luokitin. Tutkimuksessa käytettiin
+C4.5-algoritmia \cite{QuinlanC4_5}, joka on Quinlanin ID3:n pohjalta kehittämä induktioalgoritmi.
+
+Edellä mainitussa menetelmässä päädyttiin 493 potilaan tiedoista koostuvassa aineistossa päätöspuuhun, jossa 29 attribuutin joukosta
 valikoituneiden yhdeksän attribuutin perusteella voitiin ennustaa potilaan kuuluminen
 aivoverenkiertohäiriöiden suhteen riskiryhmään. Päätöspuu on esitetty kuvassa \ref{fig:AVHpäätöspuu}.
 Puun lehdissä sulkeissa tapausten lukumäärät. Symbolien merkitykset on esitetty taulukossa 
@@ -809,28 +813,6 @@ käyttökelpoisena ja relevanttina - kuitenkaan sen jalkauttamista käytännön 
 saati näyttöä sen hyödyllisyydestä ei esitetty.
 
 
-\begin{table}
-\centering
-    \begin{tabular}{ | l | p{5cm} |} \hline
-    \textbf{Symboli} & \textbf{Merkitys} \\ \hline
-    Sick & Onko sairautta? \\ \hline
-    dm(D) & Onko sokeritautia? \\ \hline
-    hp(B) & Onko verenpainetautia? \\ \hline
-    lip(B) & Onko hyperlipidemiaa? \\ \hline
-    hd(H) & Onko sepelvaltimotautia? \\ \hline
-    arr(H) & Onko rytmihäiriöitä? \\ \hline
-    mi(H) & Onko ollut sydäninfarktia? \\ \hline
-    car(H) & Onko ollut kardiogeenistä shokkia? \\ \hline
-    bmi & Painoindeksi? \\ \hline
-    N & Ei ole sairautta \\ \hline
-    SM & Aivoverenkiertohäiriö ja kaksi muuta sairautta tai sokeritauti ja yksi muu sairaus BH:n listasta \\ \hline
-    DM & Aivoverenkiertohäiriö ja sokeritauti \\ \hline
-    BH & Aivoverenkiertohäiriö ja yksi muu sairaus (verenpainetauti, reuma, hyperlipidemia, sepelvaltimotauti, rytmihäiriö, sydämen vajaatoiminta, sydäninfarkti) \\ \hline
-    CD & Vain aivoverenkierron häiriö, ei muita sairauksia \\ \hline
-    \end{tabular}
-\caption{Aivoverenkiertopäätöspuun symbolien selitykset.}
-\label{table:AVHpäätöspuuSelitteet}
-\end{table}
 
 \begin{sidewaysfigure}
 \begin{tikzpicture}[font=\fontsize{4.5}{1em}\selectfont, 
@@ -931,9 +913,33 @@ every tree node/.style={text width=0.5cm, draw, rectangle},
     ]
 ]
 \end{tikzpicture}
-\label{fig:AVHpäätöspuu}
 \caption{Päätöspuu aivoverenkiertohäiriön ennustamiseen.}
+\label{fig:AVHpäätöspuu}
 \end{sidewaysfigure}
+
+\begin{table}
+\centering
+    \begin{tabular}{ | l | p{5cm} |} \hline
+    \textbf{Symboli} & \textbf{Merkitys} \\ \hline
+    Sick & Onko sairautta? \\ \hline
+    dm(D) & Onko sokeritautia? \\ \hline
+    hp(B) & Onko verenpainetautia? \\ \hline
+    lip(B) & Onko hyperlipidemiaa? \\ \hline
+    hd(H) & Onko sepelvaltimotautia? \\ \hline
+    arr(H) & Onko rytmihäiriöitä? \\ \hline
+    mi(H) & Onko ollut sydäninfarktia? \\ \hline
+    car(H) & Onko ollut kardiogeenistä shokkia? \\ \hline
+    bmi & Painoindeksi? \\ \hline
+    N & Ei ole sairautta \\ \hline
+    SM & Aivoverenkiertohäiriö ja kaksi muuta sairautta tai sokeritauti ja yksi muu sairaus BH:n listasta \\ \hline
+    DM & Aivoverenkiertohäiriö ja sokeritauti \\ \hline
+    BH & Aivoverenkiertohäiriö ja yksi muu sairaus (verenpainetauti, reuma, hyperlipidemia, sepelvaltimotauti, rytmihäiriö, sydämen vajaatoiminta, sydäninfarkti) \\ \hline
+    CD & Vain aivoverenkierron häiriö, ei muita sairauksia \\ \hline
+    \end{tabular}
+\caption{Aivoverenkiertopäätöspuun symbolien selitykset.}
+\label{table:AVHpäätöspuuSelitteet}
+\end{table}
+
 
 %\subsection{Masennuksen ennustaminen}
 %Batterham ym. \cite{BatterhamDepressiveDisorder} 
@@ -1071,7 +1077,7 @@ kontekstissa tai näyttöä sen hyödyllisyydestä ei esitetty.
 Päätöspuut ovat tehokkaita luokittimia. Luokittelijoina päätöspuut ovat siitä erikoisia, että
 tapa, jolla ne aikaansaavat luokittelun, on intuitiivisesti usein suhteellisen helppo kenen tahansa
 ymmärtää. Puiden rakenteesta, sen solmuista, lehdistä ja poluista on parhaimmassa tapauksessa
-aikaansaatavissa sellaisia, että ne perusteet, jolla päätöspuu aikaansaa luokittelun, ovat
+aikaansaatavissa sellaisia, että ne perusteet, jolla päätöspuu tuottaa luokittelun, ovat
 myös kenen tahansa hahmotettavissa. Tämän vuoksi on oletettavissa, että erilaisista luokittimista
 juuri päätöspuut saattaisivat soveltua parhaiten sellaisiin tilanteisiin, jossa päätöspuuta käyttävän
 pitäisi kyetä varmistumaan, että sen tulos on järkeenkäypä. Etenkin terveydenhuollon
